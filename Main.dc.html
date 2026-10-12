@@ -1,0 +1,802 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>tings homepage</title>
+<script src="./vendor/react.js"></script>
+<script src="./vendor/react-dom.js"></script>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&amp;family=Instrument+Sans:wght@400;500;600&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#FFFFFF}
+a{color:#1A1A1A}a:hover{color:#3B2CE8}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.disp{font-family:'Space Grotesk','Helvetica Neue',Arial,sans-serif}
+.hdr{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);gap:24px;align-items:center}
+.nav{display:flex;gap:clamp(20px,3vw,44px);flex-wrap:wrap;justify-content:center}
+.nav a{text-decoration:none;font-size:15px;font-weight:500;padding:10px 0}
+.nav a:hover{color:#3B2CE8}
+.sq{width:56px;height:56px;border:0;border-radius:0;background:#3B2CE8;color:#FFFFFF;display:inline-flex;align-items:center;justify-content:center;cursor:pointer;padding:0}
+.sq:hover{background:#2A1DC4}
+.sq-line{width:56px;height:56px;border:1.5px solid #1A1A1A;background:#FFFFFF;color:#1A1A1A;display:inline-flex;align-items:center;justify-content:center;box-sizing:border-box}
+.overlay{position:fixed;inset:0;z-index:50;background:#FFFFFF;opacity:0;visibility:hidden;transition:opacity .5s ease,visibility 0s linear .5s}
+.overlay.open{opacity:1;visibility:visible;transition:opacity .5s ease,visibility 0s}
+.ov-in{max-width:1440px;height:100%;margin:0 auto;display:flex;flex-direction:column;box-sizing:border-box;padding:24px clamp(20px,4vw,56px)}
+.ov-foot{display:flex;justify-content:center;gap:24px;flex-wrap:wrap;font-size:14px;opacity:0;transition:opacity .5s ease .45s}
+.overlay.open .ov-foot{opacity:1}
+.overlay .olink{opacity:0;transform:translateY(18px);transition:opacity .5s ease,transform .6s cubic-bezier(.2,.7,.2,1),color .3s ease}
+.overlay.open .olink{opacity:1;transform:none}
+.overlay.open .olink:nth-child(1){transition-delay:.08s}.overlay.open .olink:nth-child(2){transition-delay:.13s}.overlay.open .olink:nth-child(3){transition-delay:.18s}.overlay.open .olink:nth-child(4){transition-delay:.23s}.overlay.open .olink:nth-child(5){transition-delay:.28s}
+.burger{position:relative}
+.burger .bl{position:absolute;left:18px;width:20px;height:1.6px;background:currentColor;border-radius:2px;transition:transform .5s cubic-bezier(.65,0,.25,1),opacity .3s ease}
+.burger .bl:nth-child(1){top:21px}.burger .bl:nth-child(2){top:27.2px}.burger .bl:nth-child(3){top:33.4px}
+.burger:hover .bl:nth-child(1){transform:translateY(-1.5px)}.burger:hover .bl:nth-child(3){transform:translateY(1.5px)}
+.burger.x .bl:nth-child(1){transform:translateY(6.2px) rotate(45deg)}
+.burger.x .bl:nth-child(2){opacity:0;transform:scaleX(.2)}
+.burger.x .bl:nth-child(3){transform:translateY(-6.2px) rotate(-45deg)}
+.olink{font-family:'Space Grotesk','Helvetica Neue',Arial,sans-serif;font-size:clamp(40px,6vw,80px);font-weight:500;letter-spacing:-0.04em;line-height:1.08;text-decoration:none;color:#1A1A1A}
+.olink:hover{color:#3B2CE8}
+.line{display:flex;align-items:baseline;justify-content:center;gap:0.24em;white-space:nowrap}
+.stack{display:inline-grid;grid-template-columns:100%;justify-items:start;overflow:hidden;padding:0.06em 0 0.28em;margin:-0.06em 0 -0.28em;color:#3B2CE8;transition:width .75s cubic-bezier(.65,0,.25,1)}
+.w{grid-area:1/1;white-space:nowrap;transition:transform .75s cubic-bezier(.65,0,.25,1),opacity .45s ease}
+.w.now{transform:none;opacity:1}
+.w.next{transform:translateY(110%);opacity:0}
+.w.past{transform:translateY(-110%);opacity:0}
+.stack.verb{color:inherit}
+.logo-word{height:1.08em;width:3.13em;vertical-align:-0.24em;display:inline-block}
+.measure{position:absolute;left:0;top:0;visibility:hidden;pointer-events:none;white-space:nowrap;display:flex}
+.vp{overflow-x:auto;overflow-y:hidden;scrollbar-width:none;cursor:grab;user-select:none;-webkit-user-select:none}
+.vp::-webkit-scrollbar{display:none}
+.vp:active{cursor:grabbing}
+.strack{display:flex;align-items:center;gap:16px;width:max-content;padding-bottom:44px;transition:min-height 1.1s cubic-bezier(.45,0,.2,1)}
+.pf{position:relative;margin:0;flex:none;transition:opacity .5s ease}
+.pf-a{display:block;color:inherit;text-decoration:none;cursor:pointer}
+.pf-a:hover{color:inherit}
+.pf img{display:block;width:auto;-webkit-user-drag:none;transition:height 1.1s cubic-bezier(.45,0,.2,1)}
+.pf figcaption{position:absolute;left:0;top:100%;padding-top:10px;white-space:nowrap;font-size:12px;line-height:1.35;opacity:0;transform:translateY(-4px);transition:opacity .4s ease,transform .4s ease;pointer-events:none}
+.pf figcaption span{display:block}
+.pf figcaption .loc{color:#6B6B6B}
+.vp:hover .pf{opacity:.35}
+.vp:hover .pf:hover{opacity:1}
+.pf:hover figcaption{opacity:1;transform:none}
+.vp.dragging .pf{opacity:1}
+.vp.dragging .pf figcaption{opacity:0}
+.v-small{min-height:clamp(170px,17vw,250px)}
+.v-small .h-s{height:clamp(70px,7vw,105px)}.v-small .h-m{height:clamp(100px,10vw,150px)}.v-small .h-l{height:clamp(140px,14vw,210px)}
+.v-bottom{align-items:flex-end;min-height:clamp(240px,24vw,360px)}
+.v-bottom .h-s{height:clamp(110px,11vw,165px)}.v-bottom .h-m{height:clamp(160px,16vw,240px)}.v-bottom .h-l{height:clamp(230px,23vw,350px)}
+.v-large{min-height:clamp(300px,32vw,480px)}
+.v-large .h-s{height:clamp(150px,15vw,230px)}.v-large .h-m{height:clamp(210px,22vw,330px)}.v-large .h-l{height:clamp(290px,31vw,470px)}
+.v-even{min-height:clamp(220px,22vw,330px)}
+.v-even .h-s,.v-even .h-m,.v-even .h-l{height:clamp(190px,19vw,290px)}
+.viewlbl{display:inline-flex;align-items:center;gap:16px;background:none;border:0;padding:0;cursor:pointer;font:inherit;font-size:14px;font-weight:500;color:#1A1A1A;text-transform:lowercase}
+.viewlbl .vtxt{opacity:0;transform:translateX(8px);transition:opacity .35s ease,transform .35s ease}
+.viewlbl:hover .vtxt,.viewlbl:focus-visible .vtxt{opacity:1;transform:none;color:#3B2CE8}
+.viewlbl:hover .sq-line{border-color:#3B2CE8;color:#3B2CE8}
+.sq-line{transition:border-color .3s ease,color .3s ease}
+.bar{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);align-items:end;gap:16px}
+.ttl{background:none;border:0;padding:0;cursor:pointer;color:#1A1A1A;display:inline-flex;align-items:flex-end;gap:14px;text-transform:lowercase}
+.ttl:hover{color:#3B2CE8}
+.dd{display:flex;flex-direction:column;align-items:center;gap:2px;margin-bottom:24px}
+.ddi{background:none;border:0;cursor:pointer;font-family:'Space Grotesk','Helvetica Neue',Arial,sans-serif;font-size:clamp(24px,2.6vw,36px);font-weight:500;letter-spacing:-0.03em;padding:4px 8px;text-transform:lowercase}
+.ddi:hover{text-decoration:underline;text-underline-offset:6px;text-decoration-thickness:2px}
+.aud{display:grid}
+.sec-head{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(24px,5vw,80px);align-items:end}
+.sec-title{margin:0;font-size:clamp(48px,6.4vw,96px);font-weight:500;letter-spacing:-0.05em;line-height:.95}
+.sec-intro{justify-self:end;margin:0;font-size:clamp(15px,1.2vw,17px);line-height:1.55;color:#5C5C5C;max-width:40ch;padding-bottom:.5em}
+.sec-rule{height:1px;background:#E2E2DF;margin:clamp(28px,3.4vw,48px) 0 clamp(40px,5vw,72px)}
+.hw{max-width:1440px;margin:0 auto;padding:clamp(96px,11vw,160px) clamp(20px,4vw,56px);box-sizing:border-box}
+.tl-meta{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;font-size:13px;color:#6B6B6B;margin-bottom:28px}
+.tl-scroll{overflow-x:auto;scrollbar-width:none;margin:0 calc(-1 * clamp(20px,4vw,56px));padding:0 clamp(20px,4vw,56px)}
+.tl-scroll::-webkit-scrollbar{display:none}
+.tlw{position:relative;min-width:1080px}
+.tl{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(9,minmax(0,1fr))}
+.tl-line{position:absolute;left:7px;width:calc(800% / 9);top:36px;height:2px;background:#E2E2DF}
+.tl-fill{position:absolute;left:0;top:0;bottom:0;background:#3B2CE8;transition:width .7s cubic-bezier(.45,0,.2,1)}
+.tl li{position:relative}
+.tlb{width:100%;background:none;border:0;padding:0 12px 0 0;margin:0;cursor:pointer;display:flex;flex-direction:column;align-items:flex-start;gap:10px;text-align:left;font:inherit;color:#A3A3A0;text-transform:lowercase;transition:color .35s ease}
+.tl-n{font-family:'Space Grotesk','Helvetica Neue',Arial,sans-serif;font-size:14px;line-height:18px;font-weight:500;font-variant-numeric:tabular-nums}
+.tl-dot{width:14px;height:14px;border-radius:999px;background:#FFFFFF;border:2px solid #CFCFCC;box-sizing:border-box;margin:2px 0 6px;transition:all .35s ease;position:relative;z-index:1}
+.tl-t{font-family:'Space Grotesk','Helvetica Neue',Arial,sans-serif;font-size:clamp(16px,1.3vw,19px);font-weight:500;letter-spacing:-0.02em;line-height:1.2;min-height:2.4em}
+.tl-d{font-size:12px;color:#A3A3A0}
+.tlb:hover{color:#1A1A1A}
+.tlb:hover .tl-dot{border-color:#1A1A1A}
+.tlb.past .tl-dot{background:#3B2CE8;border-color:#3B2CE8}
+.tlb.on{color:#1A1A1A}
+.tlb.on .tl-dot{background:#3B2CE8;border-color:#3B2CE8;transform:scale(1.45);box-shadow:0 0 0 6px #E9E8FD}
+.tlb.on .tl-d{color:#3B2CE8}
+.tl-detail{position:relative;display:grid;margin-top:clamp(40px,5vw,72px);padding-top:clamp(32px,4vw,48px);border-top:1px solid #EFEFEC}
+.tld{grid-area:1/1;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(24px,5vw,80px);opacity:0;transform:translateY(12px);transition:opacity .45s ease,transform .45s ease;pointer-events:none}
+.tld.on{opacity:1;transform:none;transition-delay:.1s;pointer-events:auto}
+.tl-dl{display:flex;flex-direction:column;align-items:flex-start;gap:12px}
+.tl-big{margin:0;font-size:clamp(32px,4vw,60px);font-weight:500;letter-spacing:-0.045em;line-height:1.02}
+.tl-chip{display:inline-flex;align-items:center;min-height:30px;padding:0 14px;border-radius:999px;background:#F2F2EF;font-size:13px;font-weight:500}
+.tl-arrows{grid-area:2/1;display:flex;gap:10px;margin-top:32px}
+.tl-arr{width:48px;height:48px;border-radius:999px;border:1.5px solid #E2E2DF;background:#FFFFFF;color:#1A1A1A;display:inline-flex;align-items:center;justify-content:center;cursor:pointer;transition:border-color .3s ease}
+.tl-arr:hover{border-color:#1A1A1A}
+.tl-arr[disabled]{opacity:.35;cursor:default}
+.hw-list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column}
+.hws{width:100%;background:none;border:0;padding:4px 0;margin:0;cursor:pointer;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,2.2fr);align-items:baseline;text-align:left;font-family:'Space Grotesk','Helvetica Neue',Arial,sans-serif;text-transform:lowercase;color:#CFCFCC;transition:color .4s ease}
+.hws .hw-n,.hws .hw-t{font-size:clamp(28px,3.4vw,50px);font-weight:500;letter-spacing:-0.04em;line-height:1.12}
+.hws .hw-n{font-variant-numeric:tabular-nums}
+.hws .hw-t{transition:transform .5s cubic-bezier(.45,0,.2,1)}
+.hws:hover{color:#9A9A96}
+.hws.on{color:#1A1A1A}
+.hws.on .hw-t{transform:translateX(8px)}
+.plan-body{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(32px,5vw,80px);align-items:center}
+.plan-lead{margin:0;font-size:clamp(15px,1.2vw,17px);line-height:1.55;color:#5C5C5C;max-width:40ch}
+.plan-go{justify-self:end;display:inline-flex;align-items:center;gap:14px;min-height:64px;padding:0 34px;border-radius:999px;background:#3B2CE8;color:#FFFFFF;text-decoration:none;font-size:17px;font-weight:500;transition:background .3s ease,gap .3s ease}
+.plan-go:hover{background:#2A1DC4;color:#FFFFFF;gap:20px}
+@media (max-width:900px){.plan-body{grid-template-columns:minmax(0,1fr)}.plan-go{justify-self:start}}
+.pl{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,2.2fr);align-items:baseline;padding:4px 0;text-decoration:none;font-family:'Space Grotesk','Helvetica Neue',Arial,sans-serif;color:#CFCFCC;transition:color .4s ease}
+.pl .hw-n,.pl .hw-t{font-size:clamp(28px,3.4vw,50px);font-weight:500;letter-spacing:-0.04em;line-height:1.12}
+.pl .hw-t{transition:transform .5s cubic-bezier(.45,0,.2,1)}
+.pl:hover,.pl:focus-visible{color:#1A1A1A}
+.pl:hover .hw-t,.pl:focus-visible .hw-t{transform:translateX(8px)}
+@media (max-width:900px){.tld{grid-template-columns:minmax(0,1fr)}.sec-head,.hw-body{grid-template-columns:minmax(0,1fr)}.sec-intro{justify-self:start}.hws{grid-template-columns:3ch minmax(0,1fr);gap:12px}}
+.zoomwrap{position:relative;height:270vh;background:#FFFFFF}
+.zsticky{position:sticky;top:0;height:100vh;min-height:620px;overflow:hidden;color:#FFFFFF;touch-action:pan-y;user-select:none;-webkit-user-select:none}
+.zpan{position:absolute;top:0;left:0;width:130%;height:100%;transition:transform 1.4s cubic-bezier(.45,0,.2,1)}
+.zimg{display:block;width:100%;height:100%;object-fit:cover;filter:saturate(.85);transform:scale(1.15);will-change:transform;-webkit-user-drag:none}
+.zdark{position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,10,14,.72) 0%,rgba(10,10,14,.58) 45%,rgba(10,10,14,.74) 100%);opacity:0}
+.zmask{position:absolute;inset:0;background:#FFFFFF;mix-blend-mode:screen;display:flex;align-items:center;justify-content:center;will-change:transform,opacity;pointer-events:none}
+.ztext{color:#000000;font-family:'Space Grotesk','Helvetica Neue',Arial,sans-serif;font-weight:700;font-size:clamp(52px,10.5vw,180px);line-height:.92;letter-spacing:-0.055em;text-align:center;padding:0 16px}
+.hcontent{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;padding:clamp(40px,6vh,80px) 0;box-sizing:border-box;opacity:0;pointer-events:none;will-change:opacity,transform}
+.hrow-vp{overflow:visible;padding-left:clamp(20px,16vw,240px)}
+.hrow{display:flex;gap:clamp(48px,7vw,120px);width:max-content;transition:transform 1s cubic-bezier(.45,0,.2,1)}
+.hh{background:none;border:0;padding:0;margin:0;cursor:pointer;font-family:'Space Grotesk','Helvetica Neue',Arial,sans-serif;font-size:clamp(44px,6.4vw,104px);font-weight:500;letter-spacing:-0.045em;line-height:1.05;color:#FFFFFF;white-space:nowrap;text-transform:lowercase;opacity:.28;transition:opacity 1s ease}
+.hh:hover{opacity:.55}
+.hh.on{opacity:1;cursor:default}
+.hline{display:flex;align-items:center;gap:20px;margin:clamp(40px,6vw,88px) 0 clamp(40px,5vw,72px);padding:0 clamp(20px,2vw,32px);font-size:14px}
+.hrule{flex:1;height:1px;background:rgba(255,255,255,.35)}
+.hnum{font-variant-numeric:tabular-nums;min-width:2ch}
+.hlabel{font-weight:500}
+.hbody{margin-left:50%;padding-right:clamp(20px,6vw,120px);display:flex;flex-direction:column;gap:32px}
+.hdesc{display:grid}
+.hd{grid-area:1/1;margin:0;font-size:clamp(17px,1.35vw,20px);line-height:1.5;max-width:38ch;opacity:0;transform:translateY(12px);transition:opacity .7s ease,transform .7s ease;pointer-events:none}
+.hd.on{opacity:1;transform:none;transition-delay:.25s;pointer-events:auto}
+.harrows{display:flex;align-items:center;gap:10px}
+.harr{width:48px;height:48px;border-radius:999px;border:1px solid rgba(255,255,255,.5);background:transparent;color:#FFFFFF;display:inline-flex;align-items:center;justify-content:center;cursor:pointer;transition:background .3s ease,color .3s ease}
+.harr:hover{background:#FFFFFF;color:#1A1A1A}
+@media (max-width:900px){.hbody{margin-left:0;padding-left:clamp(20px,4vw,56px)}.hrow-vp{padding-left:clamp(20px,4vw,56px)}}
+.steps{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:40px}
+.calc{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:72px;align-items:center}
+.ftr{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:32px}
+.btn{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:0 26px;border-radius:999px;text-decoration:none;font-size:15px;font-weight:500}
+.btn-blue{background:#3B2CE8;color:#FFFFFF}.btn-blue:hover{background:#2A1DC4;color:#FFFFFF}
+.btn-white{background:#FFFFFF;color:#3B2CE8}.btn-white:hover{background:#E9E8FD;color:#3B2CE8}
+.btn-ghost{background:rgba(255,255,255,0.16);color:#FFFFFF}.btn-ghost:hover{background:rgba(255,255,255,0.26);color:#FFFFFF}
+.replay{background:#F2F2EF;border:0;border-radius:999px;width:44px;height:44px;display:inline-flex;align-items:center;justify-content:center;cursor:pointer;color:#1A1A1A}
+.replay:hover{color:#3B2CE8}
+.flink{color:inherit;text-decoration:none}.flink:hover{color:inherit;text-decoration:underline}
+.ft{background:#FFFFFF;color:#1A1A1A;transition:background-color 1.1s cubic-bezier(.45,0,.2,1),color 1.1s cubic-bezier(.45,0,.2,1)}
+.ft.blue{background:#1800AD;color:#FFFFFF}
+.pg{transition:background-color 1.1s cubic-bezier(.45,0,.2,1)}
+.pg.blue{background:#1800AD !important}
+#process,#plan{transition:background-color 1.1s cubic-bezier(.45,0,.2,1),color 1.1s cubic-bezier(.45,0,.2,1)}
+.pg.blue #process,.pg.blue #plan{background:#1800AD !important;color:#FFFFFF}
+#process .sec-intro,#plan .plan-lead,.hw-lead,.hw-points li,.tlb,.tl-d,.hw-count,.tl-meta,.tl-chip,.sec-rule,.tl-line,.tl-detail,.plan-go{transition:color 1.1s ease,background-color 1.1s ease,border-color 1.1s ease}
+.pg.blue #process .sec-intro,.pg.blue #plan .plan-lead,.pg.blue .hw-points li,.pg.blue .hw-count,.pg.blue .tl-meta{color:rgba(255,255,255,.72)}
+.pg.blue .tlb,.pg.blue .tl-d{color:rgba(255,255,255,.55)}
+.pg.blue .tlb.on,.pg.blue .hw-lead{color:#FFFFFF}
+.pg.blue .sec-rule,.pg.blue .tl-line{background:rgba(255,255,255,.22)}
+.pg.blue .tl-detail{border-top-color:rgba(255,255,255,.18)}
+.pg.blue .tl-chip{background:rgba(255,255,255,.14);color:#FFFFFF}
+.pg.blue .plan-go{background:#FFFFFF;color:#1800AD}
+.pg.blue .plan-go:hover{background:#E8E5FB;color:#1800AD}
+.ftbtn{background:#1800AD;color:#FFFFFF;transition:background-color 1.1s ease,color 1.1s ease}
+.ftbtn:hover{color:#FFFFFF;background:#12008A}
+.ft.blue .ftbtn{background:#FFFFFF;color:#1800AD}
+.ft.blue .ftbtn:hover{background:#E8E5FB;color:#1800AD}
+.ftghost{background:rgba(24,0,173,.08);color:#1800AD;transition:background-color 1.1s ease,color 1.1s ease}
+.ftghost:hover{color:#1800AD;background:rgba(24,0,173,.14)}
+.ft.blue .ftghost{background:rgba(255,255,255,.16);color:#FFFFFF}
+.ft.blue .ftghost:hover{background:rgba(255,255,255,.26);color:#FFFFFF}
+.ftlogo{position:relative;display:block;height:48px}
+.ftlogo img{position:absolute;left:0;top:0;height:48px;width:auto;transition:opacity 1.1s ease}
+.ftlogo .lg-w{opacity:0}
+.ft.blue .lg-w{opacity:1}.ft.blue .lg-b{opacity:0}
+:focus-visible{outline:2px solid #3B2CE8;outline-offset:3px}
+@media (prefers-reduced-motion: reduce){.ft,.ftbtn,.ftghost,.ftlogo img,.overlay,.overlay .olink,.burger .bl{transition:none}.tl-fill,.tld,.tlb,.tl-dot{transition:none}.hwd,.hws,.hws .hw-t{transition:none}.w,.stack,.pf img,.strack,.hrow,.zpan,.hd{transition:none}.zoomwrap{height:auto}.zsticky{position:relative}.zmask{display:none}.zimg{transform:none}.zdark{opacity:1}.hcontent{opacity:1;pointer-events:auto}}
+@media (max-width:1000px){.aud{grid-template-columns:minmax(0,1fr);gap:40px}.steps{grid-template-columns:repeat(2,minmax(0,1fr))}.calc{grid-template-columns:minmax(0,1fr)}.ftr{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:720px){.hdr{grid-template-columns:minmax(0,1fr) auto}.nav{grid-column:1 / -1;grid-row:2;justify-content:flex-start;gap:4px 20px}.steps,.ftr{grid-template-columns:minmax(0,1fr)}.bar{grid-template-columns:minmax(0,1fr) auto}.bar .count{display:none}}
+</style>
+</helmet>
+<div class="{{pgCls}}" style="font-family: 'Instrument Sans', Arial, sans-serif; color: #1A1A1A; background: #FFFFFF; min-height: 100vh; text-transform: lowercase">
+
+<header style="max-width: 1440px; margin: 0 auto; padding: 24px clamp(20px, 4vw, 56px); box-sizing: border-box">
+<div class="hdr">
+<a href="#top" style="display: inline-flex; align-items: center; justify-self: start" aria-label="tings home">
+<img src="./assets/9093ffac45770c072f34c38a7b0aaf56.png" alt="tings" style="height: 40px; width: auto; display: block">
+</a>
+<nav class="nav" aria-label="Main">
+<a href="#works">works</a>
+<a href="./About.dc.html">about</a>
+<a href="./Plan.dc.html">plan your space</a>
+<a href="#contact">contact</a>
+</nav>
+<button class="sq burger" type="button" aria-label="Open menu" aria-expanded="{{menuExp}}" onClick="{{openMenu}}" style="justify-self: end"><span class="bl"></span><span class="bl"></span><span class="bl"></span></button>
+</div>
+</header>
+
+<div class="{{ovCls}}" role="dialog" aria-modal="true" aria-label="Menu" aria-hidden="{{ovHidden}}">
+<div class="ov-in">
+<div style="display: flex; justify-content: space-between; align-items: center">
+<img src="./assets/9093ffac45770c072f34c38a7b0aaf56.png" alt="tings" style="height: 40px; width: auto; display: block">
+<button class="{{xCls}}" type="button" aria-label="Close menu" onClick="{{closeMenu}}"><span class="bl"></span><span class="bl"></span><span class="bl"></span></button>
+</div>
+<nav aria-label="Menu" style="flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; text-align: center">
+<a class="olink" href="#works" onClick="{{closeMenu}}">works</a>
+<a class="olink" href="./About.dc.html" onClick="{{closeMenu}}">about</a>
+<a class="olink" href="./Recognition.dc.html" onClick="{{closeMenu}}">recognition</a>
+<a class="olink" href="./Plan.dc.html" onClick="{{closeMenu}}">plan your space</a>
+<a class="olink" href="#contact" onClick="{{closeMenu}}">contact</a>
+</nav>
+<div class="ov-foot">
+<a href="https://instagram.com/letsmaketings" style="color: #6B6B6B">@letsmaketings</a>
+<a href="https://wa.me/628985111208?text=Hi%20Tings!%20Saya%20ada%20rencana%20bikin%20..." style="color: #6B6B6B">+62 898 511 1208</a>
+</div>
+</div>
+</div>
+
+<main id="top">
+
+<section style="max-width: 1440px; margin: 0 auto; padding: clamp(72px, 10vw, 150px) clamp(20px, 4vw, 56px) clamp(40px, 5vw, 64px); box-sizing: border-box; display: flex; flex-direction: column; align-items: center; text-align: center">
+<h1 class="disp" style="margin: 0; font-size: clamp(30px, 8vw, 124px); font-weight: 500; line-height: 1; letter-spacing: -0.045em; position: relative; width: 100%">
+<span class="sr">we design cafés, villas, houses, bakeshops, clinics and boarding houses. we are tings.</span>
+<span class="line" aria-hidden="true">
+<span>we</span>
+<span class="stack verb" style="width: {{verbW}}"><span class="{{makeCls}}">design</span><span class="{{areCls}}">are</span></span>
+<span class="stack" style="width: {{stackW}}">
+<sc-for list="{{words}}" as="word" hint-placeholder-count="1">
+<span class="{{word.cls}}">
+<sc-if value="{{word.isLogo}}" hint-placeholder-val="{{ false }}">
+<img class="logo-word" src="./assets/9093ffac45770c072f34c38a7b0aaf56.png" alt="">
+</sc-if>
+<sc-if value="{{word.isText}}" hint-placeholder-val="{{ true }}">{{word.text}}</sc-if>
+</span>
+</sc-for>
+</span>
+</span>
+<span class="measure" aria-hidden="true" ref="{{measureRef}}">
+<span data-v="1">design</span><span data-v="1">are</span>
+<sc-for list="{{words}}" as="word" hint-placeholder-count="1">
+<sc-if value="{{word.isLogo}}" hint-placeholder-val="{{ false }}"><img data-m="1" class="logo-word" src="./assets/9093ffac45770c072f34c38a7b0aaf56.png" alt=""></sc-if>
+<sc-if value="{{word.isText}}" hint-placeholder-val="{{ true }}"><span data-m="1">{{word.text}}</span></sc-if>
+</sc-for>
+</span>
+</h1>
+<button class="replay" type="button" aria-label="Replay tagline" onClick="{{replay}}" style="margin-top: 32px">
+<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a9 9 0 1 0 3-6.7"></path><path d="M3 4v5h5"></path></svg>
+</button>
+</section>
+
+<section id="works" aria-label="Works" style="padding: clamp(16px, 3vw, 40px) 0 clamp(96px, 11vw, 160px)">
+<div class="{{vpCls}}" ref="{{vpRef}}" aria-label="Project gallery, drag or scroll sideways">
+<div class="{{trackCls}}">
+<sc-for list="{{stripItems}}" as="p" hint-placeholder-count="8">
+<figure class="pf" aria-hidden="{{p.dup}}"><a class="pf-a" href="{{p.href}}" tabindex="{{p.tab}}"><img class="{{p.cls}}" src="{{p.src}}" alt="{{p.alt}}" draggable="false"><figcaption><span style="font-weight: 500">{{p.name}}</span><span class="loc">{{p.loc}}</span></figcaption></a></figure>
+</sc-for>
+</div>
+</div>
+
+<div style="max-width: 1440px; margin: clamp(48px, 6vw, 88px) auto 0; padding: 0 clamp(20px, 4vw, 56px); box-sizing: border-box">
+<div class="bar">
+<div class="count" style="font-size: 14px; line-height: 1.4">
+<div style="font-weight: 500">drag to explore</div>
+<div style="color: #6B6B6B">{{count}} projects</div>
+</div>
+<div style="display: flex; flex-direction: column; align-items: center">
+<sc-if value="{{ddOpen}}" hint-placeholder-val="{{ false }}">
+<div class="dd">
+<sc-for list="{{filters}}" as="f" hint-placeholder-count="3">
+<button class="ddi" type="button" onClick="{{f.pick}}" style="color: {{f.color}}">{{f.label}}</button>
+</sc-for>
+</div>
+</sc-if>
+<button class="ttl disp" type="button" onClick="{{toggleDd}}" aria-expanded="{{ddOpenStr}}">
+<span style="font-size: clamp(48px, 7vw, 112px); font-weight: 500; line-height: 0.95; letter-spacing: -0.045em">{{filterLabel}}</span>
+<svg width="16" height="12" viewBox="0 0 16 12" fill="currentColor" aria-hidden="true" style="margin-bottom: 0.9em"><path d="M0 0h16L8 12z"></path></svg>
+</button>
+</div>
+<div style="display: flex; justify-content: flex-end">
+<button class="viewlbl" type="button" onClick="{{toggleView}}" aria-label="{{viewLabel}}">
+<span class="vtxt">change view</span>
+<span class="sq-line">
+<svg width="14" height="14" viewBox="0 0 14 14" fill="currentColor" aria-hidden="true"><rect x="0" y="0" width="4" height="4"></rect><rect x="10" y="0" width="4" height="4"></rect><rect x="0" y="10" width="4" height="4"></rect><rect x="10" y="10" width="4" height="4"></rect></svg>
+</span>
+</button>
+</div>
+</div>
+</div>
+</section>
+
+<section id="help" class="zoomwrap" ref="{{zoomRef}}" aria-label="who we help" aria-roledescription="carousel">
+<div class="zsticky" ref="{{helpRef}}">
+<div class="zpan" style="transform: translateX({{bgShift}})"><img class="zimg" ref="{{zImgRef}}" src="./assets/e0dc196d6e10f39b23a2fff40ceb7417.jpg" alt="" draggable="false"></div>
+<div class="zdark" ref="{{zDarkRef}}"></div>
+<div class="zmask" ref="{{zMaskRef}}" aria-hidden="true"><span class="ztext" ref="{{zTextRef}}">small spaces<br>thoughtfully made.</span></div>
+<div class="hcontent" ref="{{hContentRef}}">
+<div class="hrow-vp">
+<div class="hrow" ref="{{hRowRef}}" style="transform: translateX({{helpX}})">
+<sc-for list="{{auds}}" as="a" hint-placeholder-count="4">
+<button class="{{a.cls}}" type="button" onClick="{{a.go}}" aria-current="{{a.current}}">{{a.title}}</button>
+</sc-for>
+</div>
+</div>
+<div class="hline">
+<span class="hnum">{{helpNum}}</span>
+<span class="hrule"></span>
+<span class="hlabel">we’re here to help</span>
+</div>
+<div class="hbody">
+<div class="hdesc" aria-live="polite">
+<sc-for list="{{auds}}" as="a" hint-placeholder-count="4">
+<p class="{{a.dcls}}">{{a.desc}}</p>
+</sc-for>
+</div>
+<div class="harrows">
+<button class="harr" type="button" aria-label="Previous" onClick="{{helpPrev}}"><svg width="18" height="14" viewBox="0 0 18 14" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M17 7H2M7 1L1 7l6 6"></path></svg></button>
+<button class="harr" type="button" aria-label="Next" onClick="{{helpNext}}"><svg width="18" height="14" viewBox="0 0 18 14" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M1 7h15M11 1l6 6-6 6"></path></svg></button>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<section id="process" aria-labelledby="hw-title" style="background: #FFFFFF">
+<div class="hw">
+<div class="sec-head">
+<h2 id="hw-title" class="sec-title disp">how we work</h2>
+<p class="sec-intro">from the first sketch to the final cost estimate, we carry the design, so you can focus on what comes next: opening your doors, or finally moving in.</p>
+</div>
+<div class="sec-rule"></div>
+<div class="tl-meta">
+<span>{{stepCount}}</span>
+<span>about 6–7 weeks from site visit to handover, plus revisions</span>
+</div>
+<div class="tl-scroll">
+<div class="tlw">
+<span class="tl-line" aria-hidden="true"><span class="tl-fill" style="width: {{tlFill}}"></span></span>
+<ol class="tl">
+<sc-for list="{{steps}}" as="st" hint-placeholder-count="9">
+<li>
+<button class="{{st.cls}}" type="button" onClick="{{st.pick}}" onMouseEnter="{{st.pick}}" onFocus="{{st.pick}}" aria-pressed="{{st.on}}">
+<span class="tl-n">{{st.num}}</span>
+<span class="tl-dot" aria-hidden="true"></span>
+<span class="tl-t">{{st.title}}</span>
+<span class="tl-d">{{st.dur}}</span>
+</button>
+</li>
+</sc-for>
+</ol>
+</div>
+</div>
+<div class="tl-detail" aria-live="polite">
+<sc-for list="{{steps}}" as="st" hint-placeholder-count="9">
+<div class="{{st.dcls}}">
+<div class="tl-dl">
+<span class="hw-count disp"><span style="color: #3B2CE8">{{st.num}}</span> / 09</span>
+<h3 class="tl-big disp">{{st.title}}</h3>
+<span class="tl-chip">{{st.durLong}}</span>
+</div>
+<div class="tl-dr">
+<p class="hw-lead">{{st.lead}}</p>
+<ul class="hw-points">
+<sc-for list="{{st.points}}" as="pt" hint-placeholder-count="2">
+<li>{{pt}}</li>
+</sc-for>
+</ul>
+</div>
+</div>
+</sc-for>
+<div class="tl-arrows">
+<button class="tl-arr" type="button" aria-label="Previous step" onClick="{{stepPrev}}" disabled="{{prevDis}}"><svg width="18" height="14" viewBox="0 0 18 14" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M17 7H2M7 1L1 7l6 6"></path></svg></button>
+<button class="tl-arr" type="button" aria-label="Next step" onClick="{{stepNext}}" disabled="{{nextDis}}"><svg width="18" height="14" viewBox="0 0 18 14" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M1 7h15M11 1l6 6-6 6"></path></svg></button>
+</div>
+</div>
+</div>
+</section>
+
+<section id="plan" aria-labelledby="plan-title" style="background: #FFFFFF">
+<div class="hw" style="padding-top: 0">
+<div class="sec-head" style="grid-template-columns: minmax(0, 1fr)">
+<h2 id="plan-title" class="sec-title disp" style="white-space: nowrap">plan your space</h2>
+</div>
+<div class="sec-rule"></div>
+<div class="plan-body">
+<p class="plan-lead">how big, and how much? answer a few questions and get the floor area you need and the budget to build it, in about two minutes.</p>
+<a class="plan-go" href="./Plan.dc.html">start planning<svg width="22" height="16" viewBox="0 0 22 16" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M1 8h19M14 1l7 7-7 7"></path></svg></a>
+</div>
+</div>
+</section>
+
+</main>
+
+<footer id="contact" class="{{ftCls}}" ref="{{ftRef}}">
+<div style="max-width: 1440px; margin: 0 auto; padding: clamp(96px, 11vw, 160px) clamp(20px, 4vw, 56px) 40px; box-sizing: border-box; display: flex; flex-direction: column; gap: clamp(96px, 10vw, 140px)">
+<div style="display: flex; flex-direction: column; align-items: center; text-align: center; gap: 28px">
+<p style="margin: 0; font-size: 14px; font-weight: 400; letter-spacing: 0.16em; text-transform: uppercase">have something in mind?</p>
+<h2 class="disp" style="margin: 0; font-size: clamp(52px, 8.6vw, 136px); font-weight: 500; line-height: 0.98; letter-spacing: -0.045em; max-width: 13ch">let’s make things together.</h2>
+<div style="display: flex; gap: 12px; flex-wrap: wrap; justify-content: center">
+<a class="btn ftbtn" href="https://wa.me/628985111208?text=Hi%20Tings!%20Saya%20ada%20rencana%20bikin%20...">chat on whatsapp</a>
+<a class="btn ftghost" href="https://instagram.com/letsmaketings">@letsmaketings</a>
+</div>
+</div>
+<div style="display: flex; flex-direction: column; gap: 48px">
+<div class="ftr" style="font-size: 15px; line-height: 1.7">
+<span class="ftlogo"><img class="lg-b" src="./assets/9093ffac45770c072f34c38a7b0aaf56.png" alt="tings"><img class="lg-w" src="./assets/57e581891e41d3566f092b1a38681749.png" alt="" aria-hidden="true"></span>
+<div>yogyakarta<br>jl. hos cokroaminoto 170<br>yogyakarta 55244</div>
+<div>buton<br>jl. poros batauga, wurugana,<br>batauga, buton selatan</div>
+<div style="display: flex; flex-direction: column"><a class="flink" href="https://wa.me/628985111208?text=Hi%20Tings!%20Saya%20ada%20rencana%20bikin%20...">+62 898 511 1208</a><a class="flink" href="https://instagram.com/letsmaketings">instagram</a><a class="flink" href="https://contact.biekindesign.com">contact.biekindesign.com</a></div>
+</div>
+<div style="font-size: 13px">© 2026 tings by biekin design</div>
+</div>
+</div>
+</footer>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":6400}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { i: 0, widths: null, vwidths: null, dragging: false, help: 0, helpX: 0, step: 0, view: 'bottom', filter: 'all', ddOpen: false, menuOpen: false };
+    var self = this;
+    this.pos = 0;
+    this.lastUser = 0;
+    this.dragging = false;
+    this.measureRef = function (el) { self.mEl = el; };
+    this.hRowRef = function (el) { self.hRow = el; };
+    this.zTextRef = function (el) { self.zText = el; };
+    this.ftRef = function (el) { self.ftEl = el; };
+    this.hwListRef = function (el) { self.hwList = el; };
+    this.hwDetRef = function (el) { self.hwDet = el; };
+    this.alignStep = function (k) {
+      var top = 0;
+      if (self.hwList && self.hwDet && window.innerWidth > 900) {
+        var li = self.hwList.children[k];
+        if (li) {
+          var btn = li.firstElementChild || li;
+          var t = li.offsetTop + (btn.offsetHeight * 0.18);
+          var max = Math.max(0, self.hwList.offsetHeight - self.hwDet.offsetHeight);
+          top = Math.max(0, Math.min(max, t));
+        }
+      }
+      return top;
+    };
+    this.hContentRef = function (el) { self.hContent = el; };
+    this.zoomRef = function (el) { self.zWrap = el; };
+    this.zImgRef = function (el) { self.zImg = el; };
+    this.zDarkRef = function (el) { self.zDark = el; };
+    this.zMaskRef = function (el) { self.zMask = el; };
+    this.helpGo = function (n) {
+      var max = self.audiences().length - 1;
+      n = Math.max(0, Math.min(max, n));
+      var x = 0;
+      if (self.hRow && self.hRow.children[n]) { x = -self.hRow.children[n].offsetLeft; }
+      self.setState({ help: n, helpX: x });
+    };
+    this.onHelpDown = function (e) { self.hx = e.clientX; self.hy = e.clientY; };
+    this.onHelpUp = function (e) {
+      if (self.hx == null) { return; }
+      var dx = e.clientX - self.hx, dy = e.clientY - self.hy; self.hx = null;
+      if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy)) { self.helpGo((self.state.help || 0) + (dx < 0 ? 1 : -1)); }
+    };
+    this.onHelpWheel = function (e) {
+      if (Math.abs(e.deltaX) <= Math.abs(e.deltaY)) { return; }
+      e.preventDefault();
+      var now = performance.now();
+      if (now - (self.wheelCool || 0) < 900) { return; }
+      self.wheelAcc = (self.wheelAcc || 0) + e.deltaX;
+      if (Math.abs(self.wheelAcc) > 40) {
+        self.helpGo((self.state.help || 0) + (self.wheelAcc > 0 ? 1 : -1));
+        self.wheelAcc = 0; self.wheelCool = now;
+      }
+    };
+    this.helpRef = function (el) {
+      if (self.helpEl === el) { return; }
+      if (self.helpEl) {
+        self.helpEl.removeEventListener('pointerdown', self.onHelpDown);
+        self.helpEl.removeEventListener('pointerup', self.onHelpUp);
+        self.helpEl.removeEventListener('wheel', self.onHelpWheel);
+      }
+      self.helpEl = el;
+      if (el) {
+        el.addEventListener('pointerdown', self.onHelpDown);
+        el.addEventListener('pointerup', self.onHelpUp);
+        el.addEventListener('wheel', self.onHelpWheel, { passive: false });
+      }
+    };
+    this.onResize = function () { self.measure(); self.helpGo(self.state.help || 0); };
+    this.onScroll = function () {
+      var el = self.vp; if (!el) { return; }
+      if (Math.abs(el.scrollLeft - self.pos) > 3) {
+        self.lastUser = performance.now();
+        var setW = self.setWidth();
+        if (setW > 0 && el.scrollLeft < 2) { el.scrollLeft = el.scrollLeft + setW; }
+        else if (setW > 0 && el.scrollLeft >= setW * 2) { el.scrollLeft = el.scrollLeft - setW; }
+        self.pos = el.scrollLeft;
+      }
+    };
+    this.onDown = function (e) {
+      if (e.button !== 0 || !self.vp) { return; }
+      self.dragging = true; self.dragMoved = false; self.dragX = e.clientX; self.dragStart = self.vp.scrollLeft;
+      e.preventDefault();
+    };
+    this.onMove = function (e) {
+      if (!self.dragging || !self.vp) { return; }
+      self.vp.scrollLeft = self.dragStart - (e.clientX - self.dragX);
+      if (!self.dragMoved && Math.abs(e.clientX - self.dragX) > 4) { self.dragMoved = true; self.setState({ dragging: true }); }
+      self.lastUser = performance.now();
+    };
+    this.onClickGuard = function (e) { if (self.dragMoved) { e.preventDefault(); e.stopPropagation(); self.dragMoved = false; } };
+    this.onUp = function () { if (self.dragging) { self.dragging = false; self.lastUser = performance.now(); if (self.dragMoved) { self.setState({ dragging: false }); } } };
+    this.vpRef = function (el) {
+      if (self.vp === el) { return; }
+      if (self.vp) { self.vp.removeEventListener('scroll', self.onScroll); self.vp.removeEventListener('mousedown', self.onDown); }
+      self.vp = el;
+      if (el) {
+        el.addEventListener('scroll', self.onScroll, { passive: true });
+        el.addEventListener('mousedown', self.onDown);
+        el.addEventListener('click', self.onClickGuard, true);
+        self.pos = 0; el.scrollLeft = 0;
+      }
+    };
+    this.tick = function () {
+      var el = self.vp;
+      var now = performance.now();
+      if (el && self.anchor && now < self.anchor.until) {
+        el.scrollLeft = self.anchor.ratio * el.scrollWidth - el.clientWidth / 2;
+        self.pos = el.scrollLeft;
+        self.lastUser = now - 600;
+      } else if (el && !self.reduce && !self.dragging && now - self.lastUser > 1800) {
+        var setW = self.setWidth();
+        if (setW > 0) {
+          self.pos += 0.5;
+          if (self.pos >= setW * 2) { self.pos -= setW; }
+          el.scrollLeft = self.pos;
+          self.pos = Math.abs(el.scrollLeft - self.pos) < 1.5 ? self.pos : el.scrollLeft;
+        }
+      }
+      if (self.zWrap && self.zMask && !self.reduce) {
+        var zr = self.zWrap.getBoundingClientRect();
+        var span = zr.height - window.innerHeight;
+        if (span > 0 && zr.bottom > 0 && zr.top < window.innerHeight) {
+          var pr = Math.max(0, Math.min(1, -zr.top / span));
+          var ramp = function (a, b) { var t = Math.max(0, Math.min(1, (pr - a) / (b - a))); return t * t * (3 - 2 * t); };
+          if (self.zText) {
+            self.zMask.style.transformOrigin = '50% ' + (self.zText.offsetTop + self.zText.offsetHeight / 2) + 'px';
+          }
+          var zoom = ramp(0.04, 0.55);
+          self.zMask.style.transform = 'scale(' + (1 + Math.pow(zoom, 2.4) * 22).toFixed(3) + ')';
+          self.zMask.style.opacity = (1 - ramp(0.36, 0.56)).toFixed(3);
+          if (self.zImg) { self.zImg.style.transform = 'scale(' + (1.15 - 0.15 * ramp(0.04, 0.7)).toFixed(3) + ')'; }
+          if (self.zDark) { self.zDark.style.opacity = ramp(0.4, 0.62).toFixed(3); }
+          if (self.hContent) {
+            var c = ramp(0.52, 0.72);
+            self.hContent.style.opacity = c.toFixed(3);
+            self.hContent.style.transform = 'translateY(' + ((1 - c) * 40).toFixed(1) + 'px)';
+            self.hContent.style.pointerEvents = c > 0.5 ? 'auto' : 'none';
+          }
+        }
+      }
+      if (self.ftEl) {
+        var fr = self.ftEl.getBoundingClientRect();
+        var se = document.scrollingElement || document.documentElement;
+        var scrollable = se.scrollHeight > window.innerHeight * 1.5;
+        var fb = scrollable && (window.scrollY || se.scrollTop) > 0 && fr.top < window.innerHeight * 0.6 && fr.bottom > window.innerHeight * 0.4;
+        if (fb !== !!self.state.ftBlue) { self.setState({ ftBlue: fb }); }
+      }
+      self.raf = requestAnimationFrame(self.tick);
+    };
+  }
+  setWidth() {
+    if (!this.vp) { return 0; }
+    return (this.vp.scrollWidth + 16) / 3;
+  }
+  steps() {
+    return [
+      { title: 'decide what to design', dur: 'start', durLong: 'where it begins', lead: 'it starts with a decision: a home, a café, a boarding house or a clinic. we help you turn the idea into a clear brief.', points: ['not sure about size or budget yet? plan your space gives you a first estimate', 'the first conversation is free'] },
+      { title: 'space needs discussion', dur: 'together', durLong: 'one or two meetings', lead: 'we talk through the spaces you need and agree on what the design is locked to.', points: ['lock the area: the rooms you need are fitted to the floor area', 'lock the budget: the cost stays fixed, and spaces may be more compact', 'programming: which spaces, and how big each one is', 'how you live or work day to day, and the personal things that matter'] },
+      { title: 'site visit and existing conditions', dur: '2 days', durLong: '2 days', lead: 'we visit the site, measure it and study what is already there.', points: ['access, orientation, sun and wind', 'contours, existing structures and surroundings'] },
+      { title: 'schematic design in 3d', dur: '1 week', durLong: '1 week', lead: 'phasing, floor plans and massing, completed and presented in 3d.', points: ['easy to understand without reading technical drawings', 'see the space before it is built'] },
+      { title: 'design revisions', dur: 'flexible', durLong: 'depends on you', lead: 'refined until right. the number of rounds follows your needs, and we keep going until the design truly works.', points: ['aiming for the optimal design, not just a finished one', 'every round of feedback taken seriously'] },
+      { title: 'structural calculation', dur: '1 week', durLong: '1 week', lead: 'our structural engineers size the structure so the design is safe and efficient to build.', points: ['handled by a certified structural engineer', 'no oversized beams, no wasted budget'] },
+      { title: 'construction drawings', dur: '3 weeks', durLong: '3 weeks', lead: 'complete working drawings your contractor can build from.', points: ['plans, sections, elevations and details', 'material and finish schedules'] },
+      { title: 'cost estimate (rab)', dur: '1 week', durLong: '1 week', lead: 'a detailed bill of quantities based on ahsp, the indonesian standard unit price analysis.', points: ['unit prices updated to the latest year', 'a realistic budget for tendering and building'] },
+      { title: 'handover', dur: 'finish', durLong: 'ready to build', lead: 'drawings, 3d visuals and the cost estimate are handed over, ready for permits and your contractor.', points: ['everything in one complete package', 'we stay reachable once construction starts'] }
+    ];
+  }
+  audiences() {
+    return [
+      { title: 'business owners', desc: 'opening a café, a shop or a clinic means every square metre has to earn its place. we plan around your brand, your budget and the way customers move, and we can phase the build so your business keeps running while it happens.' },
+      { title: 'families', desc: 'everything begins with your story. we sit down to understand your daily routines and long-term plans, then design a home around how your family actually lives, today and ten years from now.' },
+      { title: 'property investors', desc: 'homestays, villas and kos are judged by how often they are booked. we design efficient plans, durable materials and rooms guests remember, so your property rents well and stays easy to maintain.' },
+      { title: 'renovations', desc: 'a small, forgotten building can become a landmark. we work with the walls and openings you already have to keep costs down, and change everything else. we start from what is already there.' }
+    ];
+  }
+  words() {
+    return ['cafés', 'villas', 'houses', 'bakeshops', 'clinics', 'boarding houses', '@logo'];
+  }
+  projects() {
+    var base = [
+      { slug: 'calma', src: './assets/ebe84f8842fd7750e9c9eaf9d18d3c10.jpg', alt: 'calma x zakwoow cafe, yogyakarta', cat: 'commercial' },
+      { slug: 'jogja-pavilion', src: './assets/8d7a6f61b8e5ded1193bfdc62733c5d9.jpg', alt: 'the jogja pavilion, yogyakarta', cat: 'residential' },
+      { slug: 'four-seasons', src: './assets/6e8f35f4876d93b2399830802dad5e4e.jpg', alt: 'four seasons homestay, palagan, yogyakarta', cat: 'commercial' },
+      { slug: 'mey-delight', src: './assets/3f8d1292fbc3fb90e9b3ef72a39b3e28.jpg', alt: 'mey delight dimsum and risoles, yogyakarta', cat: 'commercial' },
+      { slug: 'kost-arumsari', src: './assets/bf72f88f828c042d326bd001cd901c39.jpg', alt: 'kost arumsari, pogung, yogyakarta', cat: 'residential' },
+      { slug: 'kasongan', src: './assets/9d2806225c83b4637dc8c39a210a889a.jpg', alt: 'kasongan kitchen, yogyakarta', cat: 'commercial' },
+      { slug: 'rumah-sal', src: './assets/a5ceb993c87f1b5e2c747bf8abf8f23e.jpg', tall: true, alt: 'rumah sal, yogyakarta', cat: 'residential' },
+      { slug: 'rooftop-dipha', src: './assets/169de014ed3b911084eadd320cd5ea49.jpg', tall: true, alt: 'rooftop dipha kinanthi, yogyakarta', cat: 'commercial' },
+      { slug: 'rumah-kebun', src: './assets/1f39aab92c36173086dfbc6d288cbb96.jpg', alt: 'rumah kebun, buton selatan', cat: 'residential' },
+      { slug: 'decolta', src: './assets/4bf533c274f26af756d85074440ce10d.jpg', tall: true, alt: 'decolta cafe, yogyakarta', cat: 'commercial' },
+      { slug: 'haus-of-putri', src: './assets/86e1847bbb2f134675ad864d1994b3bd.jpg', alt: 'haus of putri, yogyakarta', cat: 'residential' },
+      { slug: 'klinik-bersama', src: './assets/a0cdf1fc1f339281b8ddf18c35c17a7e.jpg', alt: 'klinik+ bersama, ngawi', cat: 'commercial' },
+      { slug: 'ds-house', src: './assets/88c8650f0a209a71bdcc3c31c6afc9f6.jpg', alt: 'ds house, bantul, yogyakarta', cat: 'residential' },
+      { slug: 'bujo', src: './assets/759ea9d4275649c3f313d909b75b54ba.jpg', tall: true, alt: 'bujo glamping, pati, jawa tengah', cat: 'commercial' }
+    ];
+    var res = this.state && this.state.res;
+    if (!res || !res.length) { return base; }
+    var com = base.filter(function (p) { return p.cat === 'commercial'; });
+    var rs = res.map(function (r) { return { slug: r.slug, src: r.d, alt: r.name + ', ' + r.loc, cat: 'residential', tall: r.w / r.h < 0.9 }; });
+    var out = [], i = 0, j = 0;
+    while (i < rs.length || j < com.length) {
+      if (i < rs.length) { out.push(rs[i++]); }
+      if (i < rs.length && i % 3 === 0) { out.push(rs[i++]); }
+      if (j < com.length) { out.push(com[j++]); }
+    }
+    return out;
+  }
+  componentDidMount() {
+    var self = this;
+    try {
+      fetch('./assets/a481749716afebf5fb792aa275abf78c.json').then(function (r) { return r.json(); })
+        .then(function (j) { self.setState({ res: j }); }).catch(function () {});
+    } catch (e) {}
+    var reduce = false;
+    try { reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches; } catch (e) {}
+    this.reduce = reduce;
+    this.measure();
+    try { if (document.fonts && document.fonts.ready) { document.fonts.ready.then(function () { self.measure(); }); } } catch (e) {}
+    window.addEventListener('resize', this.onResize);
+    window.addEventListener('mousemove', this.onMove);
+    window.addEventListener('mouseup', this.onUp);
+    this.raf = requestAnimationFrame(this.tick);
+    try { if (document.fonts && document.fonts.ready) { document.fonts.ready.then(function () { self.helpGo(self.state.help || 0); }); } } catch (e) {}
+    if (reduce) { this.setState({ i: this.words().length - 1 }); } else { this.start(); }
+  }
+  componentWillUnmount() {
+    clearInterval(this.timer);
+    cancelAnimationFrame(this.raf);
+    window.removeEventListener('resize', this.onResize);
+    window.removeEventListener('mousemove', this.onMove);
+    window.removeEventListener('mouseup', this.onUp);
+    if (this.vp) { this.vp.removeEventListener('scroll', this.onScroll); this.vp.removeEventListener('mousedown', this.onDown); }
+    if (this.helpEl) { this.helpEl.removeEventListener('pointerdown', this.onHelpDown); this.helpEl.removeEventListener('pointerup', this.onHelpUp); this.helpEl.removeEventListener('wheel', this.onHelpWheel); }
+  }
+  measure() {
+    if (!this.mEl) { return; }
+    var kids = this.mEl.querySelectorAll('[data-m]');
+    var vk = this.mEl.querySelectorAll('[data-v]');
+    var w = [], v = [];
+    for (var k = 0; k < kids.length; k++) { w.push(Math.ceil(kids[k].getBoundingClientRect().width) + 2); }
+    for (var j = 0; j < vk.length; j++) { v.push(Math.ceil(vk[j].getBoundingClientRect().width) + 2); }
+    if (w.length) { this.setState({ widths: w, vwidths: v }); }
+  }
+  start() {
+    var self = this;
+    var last = this.words().length - 1;
+    clearInterval(this.timer);
+    this.timer = setInterval(function () {
+      var n = Math.min((self.state.i || 0) + 1, last);
+      self.setState({ i: n });
+      if (n >= last) { clearInterval(self.timer); }
+    }, 1300);
+  }
+  renderVals() {
+    var self = this;
+    var st = this.state || {};
+    var i = st.i || 0;
+    var widths = st.widths;
+    var isLast = i === this.words().length - 1;
+    var filter = st.filter || 'all';
+    var list = this.projects().filter(function (p) { return filter === 'all' || p.cat === filter; });
+    var sizes = ['h-m', 'h-s', 'h-l', 'h-s', 'h-m', 'h-l', 'h-s', 'h-m', 'h-s', 'h-l', 'h-m', 'h-s', 'h-l', 'h-m'];
+    var sized = list.map(function (p, k) {
+      var sz = sizes[k % sizes.length];
+      if (p.tall && sz === 'h-s') { sz = 'h-m'; }
+      if (p.tall && sz === 'h-m' && k % 2 === 0) { sz = 'h-l'; }
+      var cut = p.alt.indexOf(', ');
+      return { href: p.slug ? './Project.dc.html#' + p.slug : '#works', src: p.src, alt: p.alt, cls: sz, name: p.alt.slice(0, cut), loc: p.alt.slice(cut + 2) };
+    });
+    var strip = [];
+    for (var c = 0; c < 3; c++) {
+      sized.forEach(function (p) { strip.push({ href: p.href, src: p.src, alt: c === 0 ? p.alt : '', cls: p.cls, name: p.name, loc: p.loc, dup: c === 0 ? 'false' : 'true', tab: c === 0 ? '0' : '-1' }); });
+    }
+    var views = ['small', 'bottom', 'large', 'even'];
+    var view = views.indexOf(st.view) >= 0 ? st.view : 'bottom';
+    var nextView = views[(views.indexOf(view) + 1) % views.length];
+    var labels = { all: 'all works', residential: 'residential', commercial: 'commercial' };
+    return {
+      measureRef: this.measureRef,
+      vpRef: this.vpRef,
+      stackW: widths && widths[i] ? widths[i] + 'px' : 'auto',
+      verbW: st.vwidths && st.vwidths.length === 2 ? st.vwidths[isLast ? 1 : 0] + 'px' : 'auto',
+      makeCls: isLast ? 'w past' : 'w now',
+      areCls: isLast ? 'w now' : 'w next',
+      words: this.words().map(function (w, k) {
+        return { text: w, isLogo: w === '@logo', isText: w !== '@logo', cls: k === i ? 'w now' : (k < i ? 'w past' : 'w next') };
+      }),
+      replay: function () { self.setState({ i: 0 }); if (!self.reduce) { self.start(); } },
+      ovCls: st.menuOpen ? 'overlay open' : 'overlay',
+      ovHidden: st.menuOpen ? 'false' : 'true',
+      xCls: st.menuOpen ? 'sq burger x' : 'sq burger',
+      menuExp: st.menuOpen ? 'true' : 'false',
+      ftRef: this.ftRef,
+      ftCls: st.ftBlue ? 'ft blue' : 'ft',
+      pgCls: st.ftBlue ? 'pg blue' : 'pg',
+      openMenu: function () { self.setState({ menuOpen: true }); },
+      closeMenu: function () { self.setState({ menuOpen: false }); },
+      stripItems: strip,
+      trackCls: 'strack v-' + view,
+      count: list.length,
+      viewLabel: 'Change view, next: ' + nextView,
+      vpCls: st.dragging ? 'vp dragging' : 'vp',
+      helpRef: this.helpRef,
+      zoomRef: this.zoomRef,
+      zImgRef: this.zImgRef,
+      zDarkRef: this.zDarkRef,
+      zMaskRef: this.zMaskRef,
+      bgShift: (-(st.help || 0) / (this.audiences().length - 1) * 23.08).toFixed(2) + '%',
+      hRowRef: this.hRowRef,
+      zTextRef: this.zTextRef,
+      hContentRef: this.hContentRef,
+      helpX: (st.helpX || 0) + 'px',
+      helpNum: '0' + ((st.help || 0) + 1),
+      helpPrev: function () { self.helpGo((self.state.help || 0) - 1); },
+      helpNext: function () { self.helpGo((self.state.help || 0) + 1); },
+      hwListRef: this.hwListRef,
+      hwDetRef: this.hwDetRef,
+      detTop: (st.detTop || 0) + 'px',
+      steps: this.steps().map(function (x, k) {
+        var cur = st.step || 0, on = k === cur;
+        return { title: x.title, dur: x.dur, durLong: x.durLong, lead: x.lead, points: x.points, num: (k < 9 ? '0' : '') + (k + 1), cls: on ? 'tlb on' : (k < cur ? 'tlb past' : 'tlb'), dcls: on ? 'tld on' : 'tld', on: on ? 'true' : 'false', pick: function () { if (self.state.step !== k) { self.setState({ step: k }); } } };
+      }),
+      stepCount: '9 steps',
+      tlFill: ((st.step || 0) / 8 * 100) + '%',
+      prevDis: (st.step || 0) === 0,
+      nextDis: (st.step || 0) === 8,
+      stepPrev: function () { self.setState({ step: Math.max(0, (self.state.step || 0) - 1) }); },
+      stepNext: function () { self.setState({ step: Math.min(8, (self.state.step || 0) + 1) }); },
+      auds: this.audiences().map(function (a, k) {
+        var on = k === (st.help || 0);
+        return { title: a.title, desc: a.desc, cls: on ? 'hh on' : 'hh', dcls: on ? 'hd on' : 'hd', current: on ? 'true' : 'false', go: function () { self.helpGo(k); } };
+      }),
+      toggleView: function () {
+        var el = self.vp;
+        if (el && el.scrollWidth) { self.anchor = { ratio: (el.scrollLeft + el.clientWidth / 2) / el.scrollWidth, until: performance.now() + 1250 }; }
+        self.setState({ view: nextView });
+      },
+      filterLabel: labels[filter],
+      ddOpen: !!st.ddOpen,
+      ddOpenStr: st.ddOpen ? 'true' : 'false',
+      toggleDd: function () { self.setState({ ddOpen: !self.state.ddOpen }); },
+      filters: ['all', 'residential', 'commercial'].map(function (f) {
+        return {
+          label: labels[f],
+          color: f === filter ? '#A3A3A3' : '#1A1A1A',
+          pick: function () { self.pos = 0; if (self.vp) { self.vp.scrollLeft = 0; } self.setState({ filter: f, ddOpen: false }); }
+        };
+      })
+    };
+  }
+}
+</script>
+</body>
+</html>
