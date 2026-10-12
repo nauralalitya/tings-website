@@ -1,0 +1,209 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>plan your space · tings</title>
+<meta name="description" content="answer a few questions and get the floor area you need and the budget to build it. a free estimate by tings, architects in yogyakarta and buton.">
+<link rel="icon" href="/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/css/plan.css">
+</head>
+<body>
+<div id="app"></div>
+<template id="tpl">
+<div style="font-family: 'Instrument Sans', Arial, sans-serif; color: #1A1A1A; background: #FFFFFF; min-height: 100vh; text-transform: lowercase; padding-bottom: 96px">
+<div class="wrap">
+
+<header class="hdr">
+<a href="/" aria-label="tings home" style="display: inline-flex; justify-self: start"><img src="/assets/img/logo.png" alt="tings" style="height: 40px; width: auto; display: block"></a>
+<nav class="nav" aria-label="Main">
+<a href="/#works">works</a>
+<a href="/about/">about</a>
+<a class="cur" href="/plan/" aria-current="page">plan your space</a>
+<a href="/#contact">contact</a>
+</nav>
+<button class="lang" type="button" onClick="{{toggleLang}}" aria-label="{{langAria}}" style="justify-self: end">
+<span class="knob" style="transform: translateX({{knobX}})"></span>
+<span class="{{enCls}}">EN</span><span class="{{idCls}}">ID</span>
+</button>
+</header>
+
+<div class="sec-head">
+<h1 class="sec-title disp" style="white-space: nowrap">plan your space</h1>
+<p class="sec-intro">{{tx.intro}}</p>
+</div>
+<div class="sec-rule"></div>
+
+<div class="prog" aria-label="Progress">
+<sc-for list="{{prog}}" as="p" hint-placeholder-count="4">
+<div class="{{p.cls}}"><div class="pbar"><i></i></div><span class="pl">{{p.label}}</span></div>
+</sc-for>
+</div>
+
+<sc-if value="{{s0}}" hint-placeholder-val="{{ true }}">
+<div class="stage">
+<h2 class="h3 disp">{{tx.s0t}}</h2>
+<p class="sub">{{tx.s0s}}</p>
+<div class="cards">
+<sc-for list="{{modes}}" as="m" hint-placeholder-count="2">
+<button class="{{m.cls}}" type="button" onClick="{{m.pick}}" aria-pressed="{{m.on}}"><span class="cn">{{m.n}}</span><span class="ct">{{m.title}}</span><span class="cd">{{m.desc}}</span></button>
+</sc-for>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{s1}}" hint-placeholder-val="{{ false }}">
+<div class="stage">
+<h2 class="h3 disp">{{tx.s1t}}</h2>
+<p class="sub">{{tx.s1s}}</p>
+<div class="cards">
+<sc-for list="{{types}}" as="t" hint-placeholder-count="4">
+<button class="{{t.cls}}" type="button" onClick="{{t.pick}}" aria-pressed="{{t.on}}"><span class="ct">{{t.title}}</span><span class="cd">{{t.desc}}</span></button>
+</sc-for>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{s2}}" hint-placeholder-val="{{ false }}">
+<div class="stage">
+<h2 class="h3 disp">{{s2title}}</h2>
+<p class="sub">{{s2sub}}</p>
+<div class="qs">
+<sc-for list="{{questions}}" as="q" hint-placeholder-count="5">
+<div class="q">
+<div><div class="q-label">{{q.label}}</div><div class="q-hint">{{q.hint}}</div></div>
+<sc-if value="{{q.isStepper}}" hint-placeholder-val="{{ true }}">
+<div class="stepper"><button class="sbtn" type="button" onClick="{{q.dec}}" aria-label="decrease {{q.label}}">−</button><span class="sval" aria-live="polite">{{q.value}}</span><button class="sbtn" type="button" onClick="{{q.inc}}" aria-label="increase {{q.label}}">+</button></div>
+</sc-if>
+<sc-if value="{{q.isChoice}}" hint-placeholder-val="{{ false }}">
+<div class="chips" role="group" aria-label="{{q.label}}">
+<sc-for list="{{q.options}}" as="o" hint-placeholder-count="3">
+<button class="{{o.cls}}" type="button" onClick="{{o.pick}}" aria-pressed="{{o.on}}">{{o.label}}</button>
+</sc-for>
+</div>
+</sc-if>
+<sc-if value="{{q.isInput}}" hint-placeholder-val="{{ false }}">
+<div class="field"><input class="inp" type="text" inputmode="numeric" value="{{q.value}}" onChange="{{q.set}}" placeholder="{{q.ph}}" aria-label="{{q.label}}"><span class="unit">{{q.unit}}</span></div>
+</sc-if>
+</div>
+</sc-for>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{s3}}" hint-placeholder-val="{{ false }}">
+<div class="stage gate">
+<div>
+<div class="ready">{{tx.ready}}</div>
+<h2 class="h3 disp">{{tx.gateT}}</h2>
+<p class="sub">{{tx.gateS}}</p>
+<div class="teaser" aria-hidden="true">
+<div style="font-size: 13px; color: #6B6B6B">{{tx.kArea}}</div>
+<div class="disp" style="font-size: 56px; font-weight: 500; letter-spacing: -0.04em; line-height: 1.05; margin: 6px 0 20px">≈ {{gross}} m²</div>
+<div class="blur">
+<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px">
+<div style="background: #FFFFFF; border-radius: 12px; padding: 16px"><div style="font-size: 12px">{{tx.kCost}}</div><div class="disp" style="font-size: 22px">rp 000 – 000</div></div>
+<div style="background: #FFFFFF; border-radius: 12px; padding: 16px"><div style="font-size: 12px">{{tx.kScore}}</div><div class="disp" style="font-size: 22px">00 / 100</div></div>
+</div>
+<div style="height: 8px; background: #DAD9F7; border-radius: 99px; margin: 20px 0 10px; width: 80%"></div>
+<div style="height: 8px; background: #DAD9F7; border-radius: 99px; margin-bottom: 10px; width: 55%"></div>
+<div style="height: 8px; background: #DAD9F7; border-radius: 99px; width: 68%"></div>
+<div style="height: 40px"></div>
+</div>
+<div class="lock"><svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="2" y="6" width="10" height="7" rx="1.5"></rect><path d="M4.5 6V4.5a2.5 2.5 0 015 0V6"></path></svg>{{tx.lock}}</div>
+</div>
+</div>
+<div class="form">
+<label>{{tx.fName}}<input class="inp" type="text" autocomplete="name" value="{{name}}" onChange="{{setName}}" placeholder="{{tx.pName}}"></label>
+<label>{{tx.fWa}}<input class="inp" type="tel" autocomplete="tel" inputmode="tel" value="{{wa}}" onChange="{{setWa}}" placeholder="08xx xxxx xxxx"></label>
+<label>{{tx.fEmail}}<input class="inp" type="email" autocomplete="email" value="{{email}}" onChange="{{setEmail}}" placeholder="you@email.com"></label>
+<div class="hp" aria-hidden="true"><label>company<input type="text" tabindex="-1" autocomplete="off" value="{{hp}}" onChange="{{setHp}}"></label></div>
+<label class="consent"><input type="checkbox" checked="{{consent}}" onChange="{{toggleConsent}}"><span>{{tx.consent}}</span></label>
+<div class="err" role="alert">{{err}}</div>
+<button class="btn btn-blue" type="button" onClick="{{unlock}}">{{tx.open}}</button>
+<p class="fine">{{tx.fine}}</p>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{s4}}" hint-placeholder-val="{{ false }}">
+<div class="stage">
+<div class="ready">{{tx.full}}</div>
+<h2 class="h3 disp">{{greet}}</h2>
+<p class="sub">{{summary}}</p>
+<div class="kpis">
+<div class="kpi blue"><span class="kl">{{tx.kArea}}</span><span class="kv">{{gross}} m²</span><span class="ks">{{areaNote}}</span></div>
+<div class="kpi"><span class="kl">{{tx.kCost2}}</span><span class="kv">{{costRange}}</span><span class="ks">{{costNote}}</span></div>
+<div class="kpi"><span class="kl">{{tx.kFloors}}</span><span class="kv">{{floors}}</span><span class="ks">{{floorNote}}</span></div>
+<div class="kpi"><span class="kl">{{tx.kScore}}</span><span class="kv">{{score}}</span><span class="ks">{{scoreNote}}</span></div>
+</div>
+<div class="rgrid">
+<div>
+<div class="blk-t">{{tx.bCats}}</div>
+<div class="bars">
+<sc-for list="{{cats}}" as="c" hint-placeholder-count="3">
+<div class="bar-row"><span>{{c.label}}</span><span class="bv">{{c.val}}</span><div class="track"><div class="{{c.cls}}" style="width: {{c.w}}"></div></div><span style="grid-column: 1 / -1; font-size: 13px; color: #8A8A86">{{c.note}}</span></div>
+</sc-for>
+</div>
+</div>
+<div>
+<div class="blk-t">{{tx.bZones}}</div>
+<div class="bars">
+<sc-for list="{{zones}}" as="z" hint-placeholder-count="4">
+<div class="bar-row"><span>{{z.label}}</span><span class="bv">{{z.val}} m²</span><div class="track"><div class="fill" style="width: {{z.w}}"></div></div></div>
+</sc-for>
+</div>
+<div class="rooms">
+<sc-for list="{{rooms}}" as="r" hint-placeholder-count="6">
+<div class="room"><span>{{r.name}}</span><span>{{r.area}} m²</span></div>
+</sc-for>
+</div>
+</div>
+</div>
+<div class="rgrid">
+<div>
+<div class="blk-t">{{tx.bTiers}}</div>
+<div class="tiers">
+<sc-for list="{{tiers}}" as="t" hint-placeholder-count="3">
+<div class="{{t.cls}}"><span class="tn">{{t.label}}</span><span class="tv">{{t.range}}</span><span class="tr">{{t.rate}}</span></div>
+</sc-for>
+</div>
+</div>
+<div>
+<div class="blk-t">{{tx.bRecs}}</div>
+<ol class="recs">
+<sc-for list="{{recs}}" as="r" hint-placeholder-count="4">
+<li>{{r}}</li>
+</sc-for>
+</ol>
+</div>
+</div>
+<div class="cta">
+<h4 class="disp">{{tx.ctaT}}</h4>
+<div style="display: flex; gap: 10px; flex-wrap: wrap">
+<a class="btn btn-white" href="{{waLink}}" target="_blank" rel="noopener">{{tx.ctaWa}}</a>
+<button class="btn" type="button" onClick="{{restart}}" style="background: rgba(255,255,255,.16); color: #FFFFFF">{{tx.restart}}</button>
+</div>
+</div>
+<p class="note">{{note}}</p>
+</div>
+</sc-if>
+
+<sc-if value="{{showNav}}" hint-placeholder-val="{{ true }}">
+<div class="navrow">
+<button class="btn btn-ghost" type="button" onClick="{{back}}" style="visibility: {{backVis}}">← {{tx.back}}</button>
+<button class="btn btn-blue" type="button" onClick="{{next}}" disabled="{{nextDisabled}}">{{nextLabel}} →</button>
+</div>
+</sc-if>
+
+</div>
+</div>
+</template>
+<noscript><p style="font-family: sans-serif; padding: 40px">this page needs javascript. you can reach us on whatsapp at +62 898 511 1208.</p></noscript>
+<script src="/assets/js/dc-lite.js"></script>
+<script src="/assets/js/plan.js"></script>
+</body>
+</html>

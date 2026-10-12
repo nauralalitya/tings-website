@@ -1,0 +1,255 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>tings · architecture & interiors for homes, stays and cafés</title>
+<meta name="description" content="tings by biekin design. architecture and interiors for homes, stays, cafés, clinics and boarding houses in yogyakarta and buton. from the first sketch to the cost estimate.">
+<meta property="og:title" content="tings · small spaces, thoughtfully made.">
+<meta property="og:description" content="architecture & interiors for homes, stays, cafés and everything in between.">
+<meta property="og:image" content="/assets/img/projects/jogja-pavilion.jpg">
+<link rel="icon" href="/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/css/home.css">
+</head>
+<body>
+<div class="pg" id="pg" style="font-family: 'Instrument Sans', Arial, sans-serif; color: #1A1A1A; background: #FFFFFF; min-height: 100vh; text-transform: lowercase">
+
+<header style="max-width: 1440px; margin: 0 auto; padding: 24px clamp(20px, 4vw, 56px); box-sizing: border-box">
+<div class="hdr">
+<a href="#top" style="display: inline-flex; align-items: center; justify-self: start" aria-label="tings home">
+<img src="/assets/img/logo.png" alt="tings" style="height: 40px; width: auto; display: block">
+</a>
+<nav class="nav" aria-label="Main">
+<a href="#works">works</a>
+<a href="/about/">about</a>
+<a href="/plan/">plan your space</a>
+<a href="#contact">contact</a>
+</nav>
+<button class="sq burger" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="overlay" id="menuOpen" style="justify-self: end"><span class="bl"></span><span class="bl"></span><span class="bl"></span></button>
+</div>
+</header>
+
+<div class="overlay" id="overlay" role="dialog" aria-modal="true" aria-label="Menu" aria-hidden="true">
+<div class="ov-in">
+<div style="display: flex; justify-content: space-between; align-items: center">
+<img src="/assets/img/logo.png" alt="tings" style="height: 40px; width: auto; display: block">
+<button class="sq burger" id="menuClose" type="button" aria-label="Close menu"><span class="bl"></span><span class="bl"></span><span class="bl"></span></button>
+</div>
+<nav aria-label="Menu" style="flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; text-align: center">
+<a class="olink" href="#works">works</a>
+<a class="olink" href="/about/">about</a>
+<a class="olink" href="/recognition/">recognition</a>
+<a class="olink" href="/plan/">plan your space</a>
+<a class="olink" href="#contact">contact</a>
+</nav>
+<div class="ov-foot">
+<a href="https://instagram.com/letsmaketings" style="color: #6B6B6B">@letsmaketings</a>
+<a href="https://wa.me/628985111208?text=Hi%20Tings!%20Saya%20ada%20rencana%20bikin%20..." style="color: #6B6B6B">+62 898 511 1208</a>
+</div>
+</div>
+</div>
+
+<main id="top">
+
+<section style="max-width: 1440px; margin: 0 auto; padding: clamp(72px, 10vw, 150px) clamp(20px, 4vw, 56px) clamp(40px, 5vw, 64px); box-sizing: border-box; display: flex; flex-direction: column; align-items: center; text-align: center">
+<h1 class="disp" style="margin: 0; font-size: clamp(30px, 8vw, 124px); font-weight: 500; line-height: 1; letter-spacing: -0.045em; position: relative; width: 100%">
+<span class="sr">we design cafés, villas, houses, bakeshops, clinics and boarding houses. we are tings.</span>
+<span class="line" aria-hidden="true">
+<span>we</span>
+<span class="stack verb" id="verbStack"><span class="w now">design</span><span class="w next">are</span></span>
+<span class="stack" id="wordStack"></span>
+</span>
+<span class="measure" id="measure" aria-hidden="true"></span>
+</h1>
+<button class="replay" type="button" aria-label="Replay tagline" id="replay" style="margin-top: 32px">
+<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a9 9 0 1 0 3-6.7"></path><path d="M3 4v5h5"></path></svg>
+</button>
+</section>
+
+<section id="works" aria-label="Works" style="padding: clamp(16px, 3vw, 40px) 0 clamp(96px, 11vw, 160px)">
+<div class="vp" id="vp" aria-label="Project gallery, drag or scroll sideways">
+<div class="strack v-bottom" id="track"></div>
+</div>
+
+<div style="max-width: 1440px; margin: clamp(48px, 6vw, 88px) auto 0; padding: 0 clamp(20px, 4vw, 56px); box-sizing: border-box">
+<div class="bar">
+<div class="count" style="font-size: 14px; line-height: 1.4">
+<div style="font-weight: 500">drag to explore</div>
+<div style="color: #6B6B6B"><span id="count">32</span> projects</div>
+</div>
+<div style="display: flex; flex-direction: column; align-items: center">
+<div class="dd" id="dd" hidden></div>
+<button class="ttl disp" id="ttl" type="button" aria-expanded="false" aria-controls="dd">
+<span style="font-size: clamp(48px, 7vw, 112px); font-weight: 500; line-height: 0.95; letter-spacing: -0.045em" id="filterLabel">all works</span>
+<svg width="16" height="12" viewBox="0 0 16 12" fill="currentColor" aria-hidden="true" style="margin-bottom: 0.9em"><path d="M0 0h16L8 12z"></path></svg>
+</button>
+</div>
+<div style="display: flex; justify-content: flex-end">
+<button class="viewlbl" id="viewBtn" type="button" aria-label="Change view">
+<span class="vtxt">change view</span>
+<span class="sq-line">
+<svg width="14" height="14" viewBox="0 0 14 14" fill="currentColor" aria-hidden="true"><rect x="0" y="0" width="4" height="4"></rect><rect x="10" y="0" width="4" height="4"></rect><rect x="0" y="10" width="4" height="4"></rect><rect x="10" y="10" width="4" height="4"></rect></svg>
+</span>
+</button>
+</div>
+</div>
+</div>
+</section>
+
+<section id="help" class="zoomwrap" aria-label="who we help" aria-roledescription="carousel">
+<div class="zsticky" id="zsticky">
+<div class="zpan" id="zpan"><img class="zimg" id="zimg" src="/assets/img/help-bg.jpg" alt="" draggable="false"></div>
+<div class="zdark" id="zdark"></div>
+<div class="zmask" id="zmask" aria-hidden="true"><span class="ztext" id="ztext">small spaces<br>thoughtfully made.</span></div>
+<div class="hcontent" id="hcontent">
+<div class="hrow-vp">
+<div class="hrow" id="hrow">
+<button class="hh on" type="button" data-aud="0" aria-current="true">business owners</button>
+<button class="hh" type="button" data-aud="1" aria-current="false">families</button>
+<button class="hh" type="button" data-aud="2" aria-current="false">property investors</button>
+<button class="hh" type="button" data-aud="3" aria-current="false">renovations</button>
+</div>
+</div>
+<div class="hline">
+<span class="hnum" id="hnum">01</span>
+<span class="hrule"></span>
+<span class="hlabel">we’re here to help</span>
+</div>
+<div class="hbody">
+<div class="hdesc" aria-live="polite">
+<p class="hd on">opening a café, a shop or a clinic means every square metre has to earn its place. we plan around your brand, your budget and the way customers move, and we can phase the build so your business keeps running while it happens.</p>
+<p class="hd">everything begins with your story. we sit down to understand your daily routines and long-term plans, then design a home around how your family actually lives, today and ten years from now.</p>
+<p class="hd">homestays, villas and kos are judged by how often they are booked. we design efficient plans, durable materials and rooms guests remember, so your property rents well and stays easy to maintain.</p>
+<p class="hd">a small, forgotten building can become a landmark. we work with the walls and openings you already have to keep costs down, and change everything else. we start from what is already there.</p>
+</div>
+<div class="harrows">
+<button class="harr" type="button" aria-label="Previous" id="helpPrev"><svg width="18" height="14" viewBox="0 0 18 14" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M17 7H2M7 1L1 7l6 6"></path></svg></button>
+<button class="harr" type="button" aria-label="Next" id="helpNext"><svg width="18" height="14" viewBox="0 0 18 14" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M1 7h15M11 1l6 6-6 6"></path></svg></button>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<section id="process" aria-labelledby="hw-title" style="background: #FFFFFF">
+<div class="hw">
+<div class="sec-head">
+<h2 id="hw-title" class="sec-title disp">how we work</h2>
+<p class="sec-intro">from the first sketch to the final cost estimate, we carry the design, so you can focus on what comes next: opening your doors, or finally moving in.</p>
+</div>
+<div class="sec-rule"></div>
+<div class="tl-meta">
+<span>9 steps</span>
+<span>about 6–7 weeks from site visit to handover, plus revisions</span>
+</div>
+<div class="tl-scroll">
+<div class="tlw">
+<span class="tl-line" aria-hidden="true"><span class="tl-fill" id="tlfill" style="width: 0%"></span></span>
+<ol class="tl">
+<li><button class="tlb on" type="button" data-step="0" aria-pressed="true"><span class="tl-n">01</span><span class="tl-dot" aria-hidden="true"></span><span class="tl-t">decide what to design</span><span class="tl-d">start</span></button></li>
+<li><button class="tlb" type="button" data-step="1" aria-pressed="false"><span class="tl-n">02</span><span class="tl-dot" aria-hidden="true"></span><span class="tl-t">space needs discussion</span><span class="tl-d">together</span></button></li>
+<li><button class="tlb" type="button" data-step="2" aria-pressed="false"><span class="tl-n">03</span><span class="tl-dot" aria-hidden="true"></span><span class="tl-t">site visit and existing conditions</span><span class="tl-d">2 days</span></button></li>
+<li><button class="tlb" type="button" data-step="3" aria-pressed="false"><span class="tl-n">04</span><span class="tl-dot" aria-hidden="true"></span><span class="tl-t">schematic design in 3d</span><span class="tl-d">1 week</span></button></li>
+<li><button class="tlb" type="button" data-step="4" aria-pressed="false"><span class="tl-n">05</span><span class="tl-dot" aria-hidden="true"></span><span class="tl-t">design revisions</span><span class="tl-d">flexible</span></button></li>
+<li><button class="tlb" type="button" data-step="5" aria-pressed="false"><span class="tl-n">06</span><span class="tl-dot" aria-hidden="true"></span><span class="tl-t">structural calculation</span><span class="tl-d">1 week</span></button></li>
+<li><button class="tlb" type="button" data-step="6" aria-pressed="false"><span class="tl-n">07</span><span class="tl-dot" aria-hidden="true"></span><span class="tl-t">construction drawings</span><span class="tl-d">3 weeks</span></button></li>
+<li><button class="tlb" type="button" data-step="7" aria-pressed="false"><span class="tl-n">08</span><span class="tl-dot" aria-hidden="true"></span><span class="tl-t">cost estimate (rab)</span><span class="tl-d">1 week</span></button></li>
+<li><button class="tlb" type="button" data-step="8" aria-pressed="false"><span class="tl-n">09</span><span class="tl-dot" aria-hidden="true"></span><span class="tl-t">handover</span><span class="tl-d">finish</span></button></li>
+</ol>
+</div>
+</div>
+<div class="tl-detail" aria-live="polite">
+<div class="tld on">
+<div class="tl-dl"><span class="hw-count disp"><span style="color: #3B2CE8">01</span> / 09</span><h3 class="tl-big disp">decide what to design</h3><span class="tl-chip">where it begins</span></div>
+<div class="tl-dr"><p class="hw-lead">it starts with a decision: a home, a café, a boarding house or a clinic. we help you turn the idea into a clear brief.</p><ul class="hw-points"><li>not sure about size or budget yet? plan your space gives you a first estimate</li><li>the first conversation is free</li></ul></div>
+</div>
+<div class="tld">
+<div class="tl-dl"><span class="hw-count disp"><span style="color: #3B2CE8">02</span> / 09</span><h3 class="tl-big disp">space needs discussion</h3><span class="tl-chip">one or two meetings</span></div>
+<div class="tl-dr"><p class="hw-lead">we talk through the spaces you need and agree on what the design is locked to.</p><ul class="hw-points"><li>lock the area: the rooms you need are fitted to the floor area</li><li>lock the budget: the cost stays fixed, and spaces may be more compact</li><li>programming: which spaces, and how big each one is</li><li>how you live or work day to day, and the personal things that matter</li></ul></div>
+</div>
+<div class="tld">
+<div class="tl-dl"><span class="hw-count disp"><span style="color: #3B2CE8">03</span> / 09</span><h3 class="tl-big disp">site visit and existing conditions</h3><span class="tl-chip">2 days</span></div>
+<div class="tl-dr"><p class="hw-lead">we visit the site, measure it and study what is already there.</p><ul class="hw-points"><li>access, orientation, sun and wind</li><li>contours, existing structures and surroundings</li></ul></div>
+</div>
+<div class="tld">
+<div class="tl-dl"><span class="hw-count disp"><span style="color: #3B2CE8">04</span> / 09</span><h3 class="tl-big disp">schematic design in 3d</h3><span class="tl-chip">1 week</span></div>
+<div class="tl-dr"><p class="hw-lead">phasing, floor plans and massing, completed and presented in 3d.</p><ul class="hw-points"><li>easy to understand without reading technical drawings</li><li>see the space before it is built</li></ul></div>
+</div>
+<div class="tld">
+<div class="tl-dl"><span class="hw-count disp"><span style="color: #3B2CE8">05</span> / 09</span><h3 class="tl-big disp">design revisions</h3><span class="tl-chip">depends on you</span></div>
+<div class="tl-dr"><p class="hw-lead">refined until right. the number of rounds follows your needs, and we keep going until the design truly works.</p><ul class="hw-points"><li>aiming for the optimal design, not just a finished one</li><li>every round of feedback taken seriously</li></ul></div>
+</div>
+<div class="tld">
+<div class="tl-dl"><span class="hw-count disp"><span style="color: #3B2CE8">06</span> / 09</span><h3 class="tl-big disp">structural calculation</h3><span class="tl-chip">1 week</span></div>
+<div class="tl-dr"><p class="hw-lead">our structural engineers size the structure so the design is safe and efficient to build.</p><ul class="hw-points"><li>handled by a certified structural engineer</li><li>no oversized beams, no wasted budget</li></ul></div>
+</div>
+<div class="tld">
+<div class="tl-dl"><span class="hw-count disp"><span style="color: #3B2CE8">07</span> / 09</span><h3 class="tl-big disp">construction drawings</h3><span class="tl-chip">3 weeks</span></div>
+<div class="tl-dr"><p class="hw-lead">complete working drawings your contractor can build from.</p><ul class="hw-points"><li>plans, sections, elevations and details</li><li>material and finish schedules</li></ul></div>
+</div>
+<div class="tld">
+<div class="tl-dl"><span class="hw-count disp"><span style="color: #3B2CE8">08</span> / 09</span><h3 class="tl-big disp">cost estimate (rab)</h3><span class="tl-chip">1 week</span></div>
+<div class="tl-dr"><p class="hw-lead">a detailed bill of quantities based on ahsp, the indonesian standard unit price analysis.</p><ul class="hw-points"><li>unit prices updated to the latest year</li><li>a realistic budget for tendering and building</li></ul></div>
+</div>
+<div class="tld">
+<div class="tl-dl"><span class="hw-count disp"><span style="color: #3B2CE8">09</span> / 09</span><h3 class="tl-big disp">handover</h3><span class="tl-chip">ready to build</span></div>
+<div class="tl-dr"><p class="hw-lead">drawings, 3d visuals and the cost estimate are handed over, ready for permits and your contractor.</p><ul class="hw-points"><li>everything in one complete package</li><li>we stay reachable once construction starts</li></ul></div>
+</div>
+
+</ul>
+</div>
+</div>
+</sc-for>
+<div class="tl-arrows">
+<button class="tl-arr" type="button" aria-label="Previous step" id="stepPrev" disabled><svg width="18" height="14" viewBox="0 0 18 14" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M17 7H2M7 1L1 7l6 6"></path></svg></button>
+<button class="tl-arr" type="button" aria-label="Next step" id="stepNext"><svg width="18" height="14" viewBox="0 0 18 14" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M1 7h15M11 1l6 6-6 6"></path></svg></button>
+</div>
+</div>
+</div>
+</section>
+
+<section id="plan" aria-labelledby="plan-title" style="background: #FFFFFF">
+<div class="hw" style="padding-top: 0">
+<div class="sec-head" style="grid-template-columns: minmax(0, 1fr)">
+<h2 id="plan-title" class="sec-title disp" style="white-space: nowrap">plan your space</h2>
+</div>
+<div class="sec-rule"></div>
+<div class="plan-body">
+<p class="plan-lead">how big, and how much? answer a few questions and get the floor area you need and the budget to build it, in about two minutes.</p>
+<a class="plan-go" href="/plan/">start planning<svg width="22" height="16" viewBox="0 0 22 16" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M1 8h19M14 1l7 7-7 7"></path></svg></a>
+</div>
+</div>
+</section>
+
+</main>
+
+<footer id="contact" class="ft">
+<div style="max-width: 1440px; margin: 0 auto; padding: clamp(96px, 11vw, 160px) clamp(20px, 4vw, 56px) 40px; box-sizing: border-box; display: flex; flex-direction: column; gap: clamp(96px, 10vw, 140px)">
+<div style="display: flex; flex-direction: column; align-items: center; text-align: center; gap: 28px">
+<p style="margin: 0; font-size: 14px; font-weight: 400; letter-spacing: 0.16em; text-transform: uppercase">have something in mind?</p>
+<h2 class="disp" style="margin: 0; font-size: clamp(52px, 8.6vw, 136px); font-weight: 500; line-height: 0.98; letter-spacing: -0.045em; max-width: 13ch">let’s make things together.</h2>
+<div style="display: flex; gap: 12px; flex-wrap: wrap; justify-content: center">
+<a class="btn ftbtn" href="https://wa.me/628985111208?text=Hi%20Tings!%20Saya%20ada%20rencana%20bikin%20...">chat on whatsapp</a>
+<a class="btn ftghost" href="https://instagram.com/letsmaketings">@letsmaketings</a>
+</div>
+</div>
+<div style="display: flex; flex-direction: column; gap: 48px">
+<div class="ftr" style="font-size: 15px; line-height: 1.7">
+<span class="ftlogo"><img class="lg-b" src="/assets/img/logo.png" alt="tings"><img class="lg-w" src="/assets/img/logo-white.png" alt="" aria-hidden="true"></span>
+<div>yogyakarta<br>jl. hos cokroaminoto 170<br>yogyakarta 55244</div>
+<div>buton<br>jl. poros batauga, wurugana,<br>batauga, buton selatan</div>
+<div style="display: flex; flex-direction: column"><a class="flink" href="https://wa.me/628985111208?text=Hi%20Tings!%20Saya%20ada%20rencana%20bikin%20...">+62 898 511 1208</a><a class="flink" href="https://instagram.com/letsmaketings">instagram</a><a class="flink" href="https://contact.biekindesign.com">contact.biekindesign.com</a></div>
+</div>
+<div style="font-size: 13px">© 2026 tings by biekin design</div>
+</div>
+</div>
+</footer>
+
+</div>
+<script src="/assets/js/data.js"></script>
+<script src="/assets/js/home.js"></script>
+</body>
+</html>

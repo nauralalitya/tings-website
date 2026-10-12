@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>project · tings</title>
+<meta name="description" content="a project by tings by biekin design: architecture and interiors for homes, stays and cafés.">
+<link rel="icon" href="/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/css/project.css">
+</head>
+<body>
+<div id="app"></div>
+<template id="tpl">
+<div style="font-family: 'Instrument Sans', Arial, sans-serif; color: #1A1A1A; background: #FFFFFF; min-height: 100vh; text-transform: lowercase">
+<div class="wrap">
+<header class="hdr">
+<a href="/" aria-label="tings home" style="display: inline-flex; justify-self: start"><img src="/assets/img/logo.png" alt="tings" style="height: 40px; width: auto; display: block"></a>
+<nav class="nav" aria-label="Main">
+<a class="cur" href="/#works">works</a>
+<a href="/about/">about</a>
+<a href="/plan/">plan your space</a>
+<a href="/#contact">contact</a>
+</nav>
+<span></span>
+</header>
+
+<div class="reveal">
+<div class="crumb">
+<a href="/#works"><svg width="16" height="12" viewBox="0 0 16 12" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M15 6H2M6 1L1 6l5 5"></path></svg>all works</a>
+<div class="pn">
+<button class="pnb" type="button" aria-label="Previous project" onClick="{{goPrev}}"><svg width="14" height="12" viewBox="0 0 16 12" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M15 6H2M6 1L1 6l5 5"></path></svg></button>
+<span class="pnc">{{pos}}</span>
+<button class="pnb" type="button" aria-label="Next project" onClick="{{goNext}}"><svg width="14" height="12" viewBox="0 0 16 12" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M1 6h13M10 1l5 5-5 5"></path></svg></button>
+</div>
+</div>
+<div class="sec-head">
+<h1 class="sec-title disp">{{p.name}}</h1>
+<p class="sec-intro">{{p.intro}}</p>
+</div>
+<div class="sec-rule"></div>
+<dl class="facts">
+<sc-for list="{{facts}}" as="f" hint-placeholder-count="5">
+<div class="fact"><dt>{{f.k}}</dt><dd>{{f.v}}</dd></div>
+</sc-for>
+</dl>
+</div>
+</div>
+
+<button class="hero" type="button" onClick="{{openHero}}" aria-label="View {{p.name}} full screen"><img class="{{heroCls}}" src="{{heroSrc}}" alt="{{p.name}}, {{p.loc}}"><span class="zoom" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M10 2h4v4M6 14H2v-4M14 2L9 7M2 14l5-5"></path></svg></span></button>
+
+<div class="wrap">
+<section class="story" aria-label="Story">
+<div>
+<div class="lbl">the story</div>
+<sc-if value="{{hasQuote}}" hint-placeholder-val="{{ false }}"><p class="quote">“{{p.quote}}”</p></sc-if>
+</div>
+<div class="paras">
+<sc-for list="{{p.story}}" as="para" hint-placeholder-count="2"><p>{{para}}</p></sc-for>
+</div>
+</section>
+
+<sc-if value="{{hasGal}}" hint-placeholder-val="{{ true }}">
+<section aria-label="Gallery">
+<div class="gal-head"><div class="lbl">gallery</div><span class="cnt">{{galCount}}</span></div>
+<sc-if value="{{galLoading}}" hint-placeholder-val="{{ false }}"><div class="gal-note">loading images…</div></sc-if>
+<div class="gal">
+<sc-for list="{{gal}}" as="g" hint-placeholder-count="4">
+<button class="{{g.cls}}" type="button" onClick="{{g.open}}" aria-label="View image {{g.n}} full screen"><img src="{{g.src}}" alt="{{g.alt}}" loading="lazy"></button>
+</sc-for>
+</div>
+</section>
+</sc-if>
+
+<a class="next" href="{{nextHref}}" onClick="{{goNext}}">
+<div><div class="nl">next project</div><div class="nn">{{nextName}}</div></div>
+<div class="ni"><img src="{{nextHero}}" alt=""></div>
+</a>
+
+<section class="more" aria-label="All projects">
+<div class="gal-head"><div class="lbl">all projects</div><span class="cnt">{{total}} projects</span></div>
+<div class="more-row">
+<sc-for list="{{all}}" as="m" hint-placeholder-count="6">
+<button class="{{m.cls}}" type="button" onClick="{{m.go}}" aria-current="{{m.cur}}"><span class="mi"><img src="{{m.hero}}" alt="" loading="lazy"></span><span class="mn">{{m.name}}</span><span class="ml">{{m.loc}}</span></button>
+</sc-for>
+</div>
+</section>
+</div>
+
+<section class="cta" aria-label="Contact">
+<div class="cta-in">
+<h2 class="disp">want something like this?</h2>
+<a class="btn btn-white" href="https://wa.me/628985111208?text=Hi%20Tings!%20Saya%20ada%20rencana%20bikin%20...">chat on whatsapp</a>
+</div>
+</section>
+
+<sc-if value="{{lbOpen}}" hint-placeholder-val="{{ false }}">
+<div class="lb" role="dialog" aria-modal="true" aria-label="Image viewer" onClick="{{lbBackdrop}}">
+<img src="{{lbSrc}}" alt="{{lbAlt}}">
+<button class="lbb lb-x" type="button" aria-label="Close" onClick="{{lbClose}}"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M2 2l12 12M14 2L2 14"></path></svg></button>
+<sc-if value="{{lbMulti}}" hint-placeholder-val="{{ true }}">
+<button class="lbb lb-p" type="button" aria-label="Previous image" onClick="{{lbPrev}}"><svg width="18" height="14" viewBox="0 0 18 14" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M17 7H2M7 1L1 7l6 6"></path></svg></button>
+<button class="lbb lb-n" type="button" aria-label="Next image" onClick="{{lbNext}}"><svg width="18" height="14" viewBox="0 0 18 14" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M1 7h15M11 1l6 6-6 6"></path></svg></button>
+</sc-if>
+<div class="lb-c">{{lbCount}}</div>
+</div>
+</sc-if>
+</div>
+</template>
+<noscript><p style="font-family: sans-serif; padding: 40px">this page needs javascript. you can reach us on whatsapp at +62 898 511 1208.</p></noscript>
+<script src="/assets/js/dc-lite.js"></script>
+<script src="/assets/js/data.js"></script>
+<script src="/assets/js/project.js"></script>
+</body>
+</html>

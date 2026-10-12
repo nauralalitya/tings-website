@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>recognition · tings</title>
+<meta name="description" content="competition wins and prizes received by tings and our team.">
+<link rel="icon" href="/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/css/recognition.css">
+</head>
+<body>
+<div id="app"></div>
+<template id="tpl">
+<div style="font-family: 'Instrument Sans', Arial, sans-serif; color: #1A1A1A; background: #FFFFFF; min-height: 100vh; text-transform: lowercase">
+<div class="wrap">
+<header class="hdr">
+<a href="/" aria-label="tings home" style="display: inline-flex; justify-self: start"><img src="/assets/img/logo.png" alt="tings" style="height: 40px; width: auto; display: block"></a>
+<nav class="nav" aria-label="Main">
+<a href="/#works">works</a>
+<a  href="/about/">about</a>
+<a href="/plan/">plan your space</a>
+<a href="/#contact">contact</a>
+</nav>
+<span></span>
+</header>
+<main class="reveal">
+<div class="sec-head">
+<h1 class="sec-title disp">recognition</h1>
+<p class="sec-intro">competition wins and prizes received by tings and our team. good ideas, tested in public.</p>
+</div>
+<div class="sec-rule"></div>
+
+<section aria-labelledby="aw-t">
+<div class="blk-head"><h2 id="aw-t" class="lbl" style="margin: 0">our awards</h2><span class="cnt">5 design competitions</span></div>
+<div class="awards">
+<sc-for list="{{awards}}" as="a" hint-placeholder-count="5">
+<figure class="aw">
+<span class="{{a.rcls}}">{{a.rank}}</span>
+<div class="ph"><img src="{{a.src}}" alt="{{a.title}}" style="opacity: {{a.op}}"></div>
+<figcaption style="display: flex; flex-direction: column; gap: 6px">
+<span class="yr">{{a.year}}</span>
+<span class="tt">{{a.title}}</span>
+<span class="lc">{{a.loc}}</span>
+</figcaption>
+</figure>
+</sc-for>
+</div>
+</section>
+
+<section class="blk" aria-labelledby="mr-t">
+<div class="blk-head"><h2 id="mr-t" class="lbl" style="margin: 0">merit awards</h2><span class="cnt">futurarc prize</span></div>
+<ul class="merit">
+<li><span class="mt">futurarc prize</span><span class="my">2018</span></li>
+<li><span class="mt">futurarc prize</span><span class="my">2014</span></li>
+<li><span class="mt">futurarc prize</span><span class="my">2013</span></li>
+</ul>
+</section>
+</main>
+</div>
+<section class="cta" aria-label="Contact">
+<div class="cta-in">
+<h2 class="disp">let’s make things together.</h2>
+<a class="btn btn-white" href="https://wa.me/628985111208?text=Hi%20Tings!%20Saya%20ada%20rencana%20bikin%20...">chat on whatsapp</a>
+</div>
+</section>
+</div>
+</template>
+<noscript><p style="font-family: sans-serif; padding: 40px">this page needs javascript. you can reach us on whatsapp at +62 898 511 1208.</p></noscript>
+<script src="/assets/js/dc-lite.js"></script>
+<script src="/assets/js/recognition.js"></script>
+</body>
+</html>

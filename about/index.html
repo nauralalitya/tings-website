@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>about · tings</title>
+<meta name="description" content="tings is the more personal side of biekin design: architecture and interiors for homes, stays, cafés and everything in between.">
+<link rel="icon" href="/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/css/about.css">
+</head>
+<body>
+<div id="app"></div>
+<template id="tpl">
+<div style="font-family: 'Instrument Sans', Arial, sans-serif; color: #1A1A1A; background: #FFFFFF; min-height: 100vh; text-transform: lowercase">
+<div class="wrap">
+<header class="hdr">
+<a href="/" aria-label="tings home" style="display: inline-flex; justify-self: start"><img src="/assets/img/logo.png" alt="tings" style="height: 40px; width: auto; display: block"></a>
+<nav class="nav" aria-label="Main">
+<a href="/#works">works</a>
+<a class="cur" aria-current="page" href="/about/">about</a>
+<a href="/plan/">plan your space</a>
+<a href="/#contact">contact</a>
+</nav>
+<span></span>
+</header>
+<main class="reveal">
+<div class="sec-head">
+<h1 class="sec-title disp">about</h1>
+<p class="sec-intro">we start with how you live, work, rest, gather and grow. then we make a space around it.</p>
+</div>
+<div class="sec-rule"></div>
+<p class="statement disp">architecture &amp; interiors for homes, stays, cafés and everything in between.</p>
+<dl class="facts">
+<div><dt>who we are</dt><dd>tings is the more personal side of biekin design, working where the little decisions matter.</dd></div>
+<div><dt>yogyakarta studio</dt><dd>jl. hos cokroaminoto 170<br>yogyakarta 55244</dd></div>
+<div><dt>buton studio</dt><dd>jl. poros batauga, wurugana,<br>batauga, buton selatan</dd></div>
+</dl>
+
+<section class="blk" aria-labelledby="pr-t">
+<div class="blk-head"><h2 id="pr-t" class="lbl" style="margin: 0">studio principals</h2><span class="cnt">registered architects</span></div>
+<div class="people">
+<sc-for list="{{people}}" as="m" hint-placeholder-count="3">
+<figure class="person"><div class="ph"><img src="{{m.src}}" alt="portrait of {{m.name}}" style="opacity: {{m.op}}"></div><figcaption><span class="pn">{{m.name}}</span><span class="pr">{{m.role}}</span></figcaption></figure>
+</sc-for>
+</div>
+</section>
+
+<section class="blk" aria-labelledby="tm-t">
+<div class="blk-head"><h2 id="tm-t" class="lbl" style="margin: 0">our team</h2><span class="cnt">architects and engineers</span></div>
+<div class="team">
+<div><p class="role">senior associates (registered architects)</p><ul class="names"><li>dr. revianto budi santosa, m.arch, iai</li><li>ar. agung rudianto, st, iai, gp</li></ul></div>
+<div><p class="role">structure engineer associate</p><ul class="names"><li>jafar, st, mt, murp</li></ul></div>
+<div><p class="role">associates (registered architects)</p><ul class="names"><li>ar. zhafira rizqa bennaradicta, s.ars, iai</li><li>ar. retno wulan ndari, s.ars, iai</li></ul></div>
+</div>
+<p class="fine">our architects hold ska (architectural expertise certificate) and stra (architect registration certificate), indonesia. our structure engineer holds skk konstruksi (construction competency certificate), indonesia.</p>
+</section>
+</main>
+</div>
+<section class="cta" aria-label="Contact">
+<div class="cta-in">
+<h2 class="disp">let’s make things together.</h2>
+<a class="btn btn-white" href="https://wa.me/628985111208?text=Hi%20Tings!%20Saya%20ada%20rencana%20bikin%20...">chat on whatsapp</a>
+</div>
+</section>
+</div>
+</template>
+<noscript><p style="font-family: sans-serif; padding: 40px">this page needs javascript. you can reach us on whatsapp at +62 898 511 1208.</p></noscript>
+<script src="/assets/js/dc-lite.js"></script>
+<script src="/assets/js/about.js"></script>
+</body>
+</html>
